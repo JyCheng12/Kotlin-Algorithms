@@ -71,6 +71,7 @@ class FordFulkerson
 
         // while there exists an augmenting path, use it
         value = excess(G, t)
+        val time = System.currentTimeMillis()
         while (hasAugmentingPath(G, s, t)) {
 
             // compute bottleneck capacity
@@ -93,7 +94,7 @@ class FordFulkerson
         }
 
         // check optimality conditions
-        assert(check(G, s, t))
+        // assert(check(G, s, t))
     }
 
     /**
@@ -134,13 +135,12 @@ class FordFulkerson
                 val w = e.other(v)
 
                 // if residual capacity from v to w
-                if (e.residualCapacityTo(w) > 0) {
+                if (e.residualCapacityTo(w) > 0)
                     if (!marked[w]) {
                         edgeTo[w] = e
                         marked[w] = true
                         queue.enqueue(w)
                     }
-                }
             }
         }
         // is there an augmenting path?
@@ -151,12 +151,11 @@ class FordFulkerson
     // return excess flow at vertex v
     private fun excess(G: FlowNetwork, v: Int): Double {
         var excess = 0.0
-        for (e in G.adj(v)) {
+        for (e in G.adj(v))
             if (v == e.from)
                 excess -= e.flow
             else
                 excess += e.flow
-        }
         return excess
     }
 
@@ -164,14 +163,12 @@ class FordFulkerson
     private fun isFeasible(G: FlowNetwork, s: Int, t: Int): Boolean {
 
         // check that capacity constraints are satisfied
-        for (v in 0 until G.V) {
-            for (e in G.adj(v)) {
+        for (v in 0 until G.V)
+            for (e in G.adj(v))
                 if (e.flow < -FLOATING_POINT_EPSILON || e.flow > e.capacity + FLOATING_POINT_EPSILON) {
                     System.err.println("Edge does not satisfy capacity constraints: $e")
                     return false
                 }
-            }
-        }
 
         // check that net flow into a vertex equals zero, except at source and sink
         if (Math.abs(value + excess(G, s)) > FLOATING_POINT_EPSILON) {
@@ -184,14 +181,13 @@ class FordFulkerson
             System.err.println("Max flow         = $value")
             return false
         }
-        for (v in 0 until G.V) {
+        for (v in 0 until G.V)
             if (v == s || v == t)
                 continue
             else if (Math.abs(excess(G, v)) > FLOATING_POINT_EPSILON) {
                 System.err.println("Net flow out of $v doesn't equal zero")
                 return false
             }
-        }
         return true
     }
 
@@ -216,12 +212,10 @@ class FordFulkerson
 
         // check that value of min cut = value of max flow
         var mincutValue = 0.0
-        for (v in 0 until G.V) {
-            for (e in G.adj(v)) {
+        for (v in 0 until G.V)
+            for (e in G.adj(v))
                 if (v == e.from && inCut(e.from) && !inCut(e.to))
                     mincutValue += e.capacity
-            }
-        }
 
         if (Math.abs(mincutValue - value) > FLOATING_POINT_EPSILON) {
             System.err.println("Max flow value = $value, min cut value = $mincutValue")
@@ -253,12 +247,10 @@ class FordFulkerson
             // compute maximum flow and minimum cut
             val maxflow = FordFulkerson(G, s, t)
             StdOut.println("Max flow from $s to $t")
-            for (v in 0 until G.V) {
-                for (e in G.adj(v)) {
+            for (v in 0 until G.V)
+                for (e in G.adj(v))
                     if (v == e.from && e.flow > 0)
                         StdOut.println("   $e")
-                }
-            }
 
             // print min-cut
             StdOut.print("Min cut: ")
@@ -269,29 +261,32 @@ class FordFulkerson
             StdOut.println("Max flow value = ${maxflow.value}")
         }
     }
-
 }
 
 /******************************************************************************
- * Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ * This Kotlin file is automatically translated from Java using the
+ * Java-to-Kotlin converter by JetBrains with manual adjustments.
  *
- * This file is part of algs4.jar, which accompanies the textbook
+ * Following is the copyright contents of the original file:
  *
- * Algorithms, 4th edition by Robert Sedgewick and Kevin Wayne,
- * Addison-Wesley Professional, 2011, ISBN 0-321-57351-X.
- * http://algs4.cs.princeton.edu
+ *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
  *
+ *  This original file is part of algs4.jar, which accompanies the
+ *  textbook
+ *  Algorithms, 4th edition by Robert Sedgewick and Kevin Wayne,
+ *  Addison-Wesley Professional, 2011, ISBN 0-321-57351-X.
+ *  http://algs4.cs.princeton.edu
  *
- * algs4.jar is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ *  algs4.jar is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
  *
- * algs4.jar is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ *  algs4.jar is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with algs4.jar.  If not, see http://www.gnu.org/licenses.
+ *  You should have received a copy of the GNU General Public License
+ *  along with algs4.jar.  If not, see http://www.gnu.org/licenses.
  */

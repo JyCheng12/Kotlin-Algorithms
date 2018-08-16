@@ -141,12 +141,10 @@ class FenwickTree(size: Int) {
                 var arg1 = 0
                 var arg2 = 0
 
-                if (line.size > 1) {
+                if (line.size > 1)
                     arg1 = Integer.parseInt(line[1])
-                }
-                if (line.size > 2) {
+                if (line.size > 2)
                     arg2 = Integer.parseInt(line[2])
-                }
                 if (line[0] != "set" && line[0] != "init" && ft == null) {
                     StdOut.println("FenwickTree not initialized")
                     continue
@@ -155,22 +153,19 @@ class FenwickTree(size: Int) {
                 when (line[0]) {
                     "init" -> {
                         ft = FenwickTree(arg1)
-                        for (i in 1..ft.size()) {
-                            print(ft.rsq(i, i).toString() + " ")
-                        }
+                        for (i in 1..ft.size())
+                            print("${ft.rsq(i, i)} ")
                         StdOut.println()
                     }
                     "set" -> {
                         ft = FenwickTree(line.size - 1)
-                        for (i in 1 until line.size) {
+                        for (i in 1 until line.size)
                             ft.update(i, Integer.parseInt(line[i]))
-                        }
                     }
                     "up" -> {
                         ft!!.update(arg1, arg2)
-                        for (i in 1..ft.size()) {
+                        for (i in 1..ft.size())
                             print("${ft.rsq(i, i)} ")
-                        }
                         StdOut.println()
                     }
                     "rsq" -> StdOut.printf("Sum from %d to %d = %d%n", arg1, arg2, ft!!.rsq(arg1, arg2))
@@ -183,25 +178,29 @@ class FenwickTree(size: Int) {
 }
 
 /******************************************************************************
- * Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ * This Kotlin file is automatically translated from Java using the
+ * Java-to-Kotlin converter by JetBrains with manual adjustments.
  *
- * This file is part of algs4.jar, which accompanies the textbook
+ * Following is the copyright contents of the original file:
  *
- * Algorithms, 4th edition by Robert Sedgewick and Kevin Wayne,
- * Addison-Wesley Professional, 2011, ISBN 0-321-57351-X.
- * http://algs4.cs.princeton.edu
+ *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
  *
+ *  This original file is part of algs4.jar, which accompanies the
+ *  textbook
+ *  Algorithms, 4th edition by Robert Sedgewick and Kevin Wayne,
+ *  Addison-Wesley Professional, 2011, ISBN 0-321-57351-X.
+ *  http://algs4.cs.princeton.edu
  *
- * algs4.jar is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ *  algs4.jar is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
  *
- * algs4.jar is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ *  algs4.jar is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with algs4.jar.  If not, see http://www.gnu.org/licenses.
+ *  You should have received a copy of the GNU General Public License
+ *  along with algs4.jar.  If not, see http://www.gnu.org/licenses.
  */

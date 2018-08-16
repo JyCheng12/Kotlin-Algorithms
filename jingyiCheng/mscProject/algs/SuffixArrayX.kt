@@ -267,9 +267,9 @@ class SuffixArrayX
                 val ith = "\"" + s.substring(index, Math.min(index + 50, s.length)) + "\""
                 val rank = suffix2.rank(s.substring(index))
                 assert(s.substring(index) == suffix2.select(i))
-                if (i == 0) {
+                if (i == 0)
                     StdOut.printf("%3d %3d %3s %3d  %s\n", i, index, "-", rank, ith)
-                } else {
+                else {
                     val lcp = suffix2.lcp(i)
                     StdOut.printf("%3d %3d %3d %3d  %s\n", i, index, lcp, rank, ith)
                 }
@@ -279,25 +279,29 @@ class SuffixArrayX
 }
 
 /******************************************************************************
- * Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ * This Kotlin file is automatically translated from Java using the
+ * Java-to-Kotlin converter by JetBrains with manual adjustments.
  *
- * This file is part of algs4.jar, which accompanies the textbook
+ * Following is the copyright contents of the original file:
  *
- * Algorithms, 4th edition by Robert Sedgewick and Kevin Wayne,
- * Addison-Wesley Professional, 2011, ISBN 0-321-57351-X.
- * http://algs4.cs.princeton.edu
+ *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
  *
+ *  This original file is part of algs4.jar, which accompanies the
+ *  textbook
+ *  Algorithms, 4th edition by Robert Sedgewick and Kevin Wayne,
+ *  Addison-Wesley Professional, 2011, ISBN 0-321-57351-X.
+ *  http://algs4.cs.princeton.edu
  *
- * algs4.jar is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ *  algs4.jar is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
  *
- * algs4.jar is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ *  algs4.jar is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with algs4.jar.  If not, see http://www.gnu.org/licenses.
+ *  You should have received a copy of the GNU General Public License
+ *  along with algs4.jar.  If not, see http://www.gnu.org/licenses.
  */

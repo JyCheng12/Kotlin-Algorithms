@@ -192,21 +192,19 @@ class FibonacciMinPQ<Key : Any> : Iterable<Key> {
                 if (greater(y.key, z.key)) {
                     link(y, z)
                     y = z
-                } else {
+                } else
                     link(z, y)
-                }
                 z = table[y.order]
             }
             table[y!!.order] = y
             if (y.order > maxOrder) maxOrder = y.order
         } while (x !== head)
         head = null
-        for (n in table.values) {
+        for (n in table.values)
             if (n != null) {
                 min = if (greater(min!!.key, n.key)) n else min
                 head = insert(n, head)
             }
-        }
     }
 
     //Inserts a Node in a circular list containing head, returns a new head
@@ -260,9 +258,7 @@ class FibonacciMinPQ<Key : Any> : Iterable<Key> {
      * @return an Iterator over the Keys in the priority queue in ascending order
      */
 
-    override fun iterator(): Iterator<Key> {
-        return MyIterator()
-    }
+    override fun iterator(): Iterator<Key> = MyIterator()
 
     private inner class MyIterator : Iterator<Key> {
         private val copy: FibonacciMinPQ<Key> = FibonacciMinPQ(comp)
@@ -282,9 +278,7 @@ class FibonacciMinPQ<Key : Any> : Iterable<Key> {
             } while (x !== head)
         }
 
-        override fun hasNext(): Boolean {
-            return !copy.isEmpty
-        }
+        override fun hasNext() = !copy.isEmpty
 
         //Takes amortized logarithmic time
         override fun next(): Key {
@@ -299,9 +293,7 @@ class FibonacciMinPQ<Key : Any> : Iterable<Key> {
 
     //default Comparator
     private inner class MyComparator : Comparator<Key> {
-        override fun compare(key1: Key, key2: Key): Int {
-            return (key1 as Comparable<Key>).compareTo(key2)
-        }
+        override fun compare(key1: Key, key2: Key) = (key1 as Comparable<Key>).compareTo(key2)
     }
 
     companion object {
@@ -317,9 +309,8 @@ class FibonacciMinPQ<Key : Any> : Iterable<Key> {
             StdOut.println("(${pq.size} left on pq)")
             val items = arrayOf("A", "B", "C", "D", "E", "F", null, "G")
             try {
-                for (x in items) {
+                for (x in items)
                     pq.insert(x)
-                }
             } catch (e: IllegalArgumentException) {
                 StdOut.println(e.message)
             }
@@ -352,25 +343,29 @@ class FibonacciMinPQ<Key : Any> : Iterable<Key> {
 }
 
 /******************************************************************************
- * Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ * This Kotlin file is automatically translated from Java using the
+ * Java-to-Kotlin converter by JetBrains with manual adjustments.
  *
- * This file is part of algs4.jar, which accompanies the textbook
+ * Following is the copyright contents of the original file:
  *
- * Algorithms, 4th edition by Robert Sedgewick and Kevin Wayne,
- * Addison-Wesley Professional, 2011, ISBN 0-321-57351-X.
- * http://algs4.cs.princeton.edu
+ *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
  *
+ *  This original file is part of algs4.jar, which accompanies the
+ *  textbook
+ *  Algorithms, 4th edition by Robert Sedgewick and Kevin Wayne,
+ *  Addison-Wesley Professional, 2011, ISBN 0-321-57351-X.
+ *  http://algs4.cs.princeton.edu
  *
- * algs4.jar is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ *  algs4.jar is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
  *
- * algs4.jar is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ *  algs4.jar is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with algs4.jar.  If not, see http://www.gnu.org/licenses.
+ *  You should have received a copy of the GNU General Public License
+ *  along with algs4.jar.  If not, see http://www.gnu.org/licenses.
  */

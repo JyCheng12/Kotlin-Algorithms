@@ -495,9 +495,8 @@ private constructor() : ActionListener, MouseListener, MouseMotionListener, KeyL
         val chooser = FileDialog(frame, "Use a .png or .jpg extension", FileDialog.SAVE)
         chooser.isVisible = true
         val filename = chooser.file
-        if (filename != null) {
+        if (filename != null)
             save(chooser.directory + File.separator + chooser.file)
-        }
     }
 
     /**
@@ -524,52 +523,43 @@ private constructor() : ActionListener, MouseListener, MouseMotionListener, KeyL
     /**
      * This method cannot be called directly.
      */
-    override fun mousePressed(e: MouseEvent) {
-        synchronized(mouseLock) {
+    override fun mousePressed(e: MouseEvent) = synchronized(mouseLock) {
             mouseX = userX(e.x.toDouble())
             mouseY = userY(e.y.toDouble())
             isMousePressed = true
-        }
     }
+
 
     /**
      * This method cannot be called directly.
      */
-    override fun mouseReleased(e: MouseEvent) {
-        synchronized(mouseLock) {
+    override fun mouseReleased(e: MouseEvent) = synchronized(mouseLock) {
             isMousePressed = false
         }
-    }
 
     /**
      * This method cannot be called directly.
      */
-    override fun mouseDragged(e: MouseEvent) {
-        synchronized(mouseLock) {
+    override fun mouseDragged(e: MouseEvent) = synchronized(mouseLock) {
             mouseX = userX(e.x.toDouble())
             mouseY = userY(e.y.toDouble())
         }
-    }
 
     /**
      * This method cannot be called directly.
      */
-    override fun mouseMoved(e: MouseEvent) {
-        synchronized(mouseLock) {
+    override fun mouseMoved(e: MouseEvent) = synchronized(mouseLock) {
             mouseX = userX(e.x.toDouble())
             mouseY = userY(e.y.toDouble())
         }
-    }
 
 
     /**
      * This method cannot be called directly.
      */
-    override fun keyTyped(e: KeyEvent) {
-        synchronized(keyLock) {
+    override fun keyTyped(e: KeyEvent) = synchronized(keyLock) {
             keysTyped.addFirst(e.keyChar)
         }
-    }
 
     /**
      * This method cannot be called directly.
@@ -684,7 +674,6 @@ private constructor() : ActionListener, MouseListener, MouseMotionListener, KeyL
         private val DEFAULT_PEN_COLOR = BLACK
         private val DEFAULT_CLEAR_COLOR = WHITE
 
-
         var penColor: Color? = null
             /**
              * Sets the pen color to the specified color.
@@ -711,7 +700,6 @@ private constructor() : ActionListener, MouseListener, MouseMotionListener, KeyL
 
         // default pen radius
         private const val DEFAULT_PEN_RADIUS = 0.002
-
 
         // BasicStroke stroke = new BasicStroke(scaledPenRadius);
         var penRadius: Double = 0.toDouble()
@@ -986,7 +974,6 @@ private constructor() : ActionListener, MouseListener, MouseMotionListener, KeyL
             font = DEFAULT_FONT
         }
 
-
         /***************************************************************************
          * Drawing geometric shapes.
          */
@@ -1187,7 +1174,6 @@ private constructor() : ActionListener, MouseListener, MouseMotionListener, KeyL
             draw()
         }
 
-
         /**
          * Draws a rectangle of the specified size, centered at (*x*, *y*).
          *
@@ -1229,7 +1215,6 @@ private constructor() : ActionListener, MouseListener, MouseMotionListener, KeyL
             else offscreen.fill(Rectangle2D.Double(xs - ws / 2, ys - hs / 2, ws, hs))
             draw()
         }
-
 
         /**
          * Draws a polygon with the vertices
@@ -1402,12 +1387,11 @@ private constructor() : ActionListener, MouseListener, MouseMotionListener, KeyL
             if (ws < 0 || hs < 0) throw IllegalArgumentException("image $filename is corrupt")
             if (ws <= 1 && hs <= 1)
                 pixel(x, y)
-            else {
+            else
                 offscreen.drawImage(image, Math.round(xs - ws / 2.0).toInt(),
                         Math.round(ys - hs / 2.0).toInt(),
                         Math.round(ws).toInt(),
                         Math.round(hs).toInt(), null)
-            }
             draw()
         }
 
@@ -1677,9 +1661,7 @@ private constructor() : ActionListener, MouseListener, MouseMotionListener, KeyL
          */
         fun nextKeyTyped(): Char {
             synchronized(keyLock) {
-                if (keysTyped.isEmpty()) {
-                    throw NoSuchElementException("your program has already processed all keystrokes")
-                }
+                if (keysTyped.isEmpty()) throw NoSuchElementException("your program has already processed all keystrokes")
                 return keysTyped.removeAt(keysTyped.size - 1)
             }
         }
@@ -1735,14 +1717,18 @@ private constructor() : ActionListener, MouseListener, MouseMotionListener, KeyL
 }
 
 /******************************************************************************
+ * This Kotlin file is automatically translated from Java using the
+ * Java-to-Kotlin converter by JetBrains with manual adjustments.
+ *
+ * Following is the copyright contents of the original file:
+ *
  *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
  *
- *  This file is part of algs4.jar, which accompanies the textbook
- *
- *      Algorithms, 4th edition by Robert Sedgewick and Kevin Wayne,
- *      Addison-Wesley Professional, 2011, ISBN 0-321-57351-X.
- *      http://algs4.cs.princeton.edu
- *
+ *  This original file is part of algs4.jar, which accompanies the
+ *  textbook
+ *  Algorithms, 4th edition by Robert Sedgewick and Kevin Wayne,
+ *  Addison-Wesley Professional, 2011, ISBN 0-321-57351-X.
+ *  http://algs4.cs.princeton.edu
  *
  *  algs4.jar is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -1756,4 +1742,4 @@ private constructor() : ActionListener, MouseListener, MouseMotionListener, KeyL
  *
  *  You should have received a copy of the GNU General Public License
  *  along with algs4.jar.  If not, see http://www.gnu.org/licenses.
- ******************************************************************************/
+ */

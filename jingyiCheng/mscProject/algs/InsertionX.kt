@@ -50,12 +50,11 @@ object InsertionX {
 
         // put smallest element in position to serve as sentinel
         var exchanges = 0
-        for (i in n - 1 downTo 1) {
+        for (i in n - 1 downTo 1)
             if (less(a[i], a[i - 1])) {
                 exch(a, i, i - 1)
                 exchanges++
             }
-        }
         if (exchanges == 0) return
 
         // insertion sort with half-exchanges
@@ -89,10 +88,10 @@ object InsertionX {
 
     // print array to standard output
     private fun <T> show(a: Array<T>) {
-        for (i in a) {
+        for (i in a)
             StdOut.println(i)
-        }
     }
+
 
     /**
      * Reads in a sequence of strings from standard input; insertion sorts them;
@@ -110,25 +109,29 @@ object InsertionX {
 }// This class should not be instantiated.
 
 /******************************************************************************
- * Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ * This Kotlin file is automatically translated from Java using the
+ * Java-to-Kotlin converter by JetBrains with manual adjustments.
  *
- * This file is part of algs4.jar, which accompanies the textbook
+ * Following is the copyright contents of the original file:
  *
- * Algorithms, 4th edition by Robert Sedgewick and Kevin Wayne,
- * Addison-Wesley Professional, 2011, ISBN 0-321-57351-X.
- * http://algs4.cs.princeton.edu
+ *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
  *
+ *  This original file is part of algs4.jar, which accompanies the
+ *  textbook
+ *  Algorithms, 4th edition by Robert Sedgewick and Kevin Wayne,
+ *  Addison-Wesley Professional, 2011, ISBN 0-321-57351-X.
+ *  http://algs4.cs.princeton.edu
  *
- * algs4.jar is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ *  algs4.jar is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
  *
- * algs4.jar is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ *  algs4.jar is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with algs4.jar.  If not, see http://www.gnu.org/licenses.
+ *  You should have received a copy of the GNU General Public License
+ *  along with algs4.jar.  If not, see http://www.gnu.org/licenses.
  */

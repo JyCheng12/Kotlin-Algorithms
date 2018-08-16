@@ -177,7 +177,6 @@ class Draw : ActionListener, MouseListener, MouseMotionListener, KeyListener {
         frame!!.isVisible = true
     }
 
-
     /**
      * Sets the upper-left hand corner of the drawing window to be (x, y), where (0, 0) is upper left.
      *
@@ -213,14 +212,11 @@ class Draw : ActionListener, MouseListener, MouseMotionListener, KeyListener {
      * and `canvasHeight` are positive
      */
     fun setCanvasSize(canvasWidth: Int, canvasHeight: Int) {
-        if (canvasWidth < 1 || canvasHeight < 1) {
-            throw IllegalArgumentException("width and height must be positive")
-        }
+        if (canvasWidth < 1 || canvasHeight < 1) throw IllegalArgumentException("width and height must be positive")
         width = canvasWidth
         height = canvasHeight
         init()
     }
-
 
     // create the menu bar (changed to private)
     private fun createMenuBar(): JMenuBar {
@@ -316,7 +312,6 @@ class Draw : ActionListener, MouseListener, MouseMotionListener, KeyListener {
         penColor = Color(red, green, blue)
     }
 
-
     /**
      * Turns on xor mode.
      */
@@ -337,7 +332,6 @@ class Draw : ActionListener, MouseListener, MouseMotionListener, KeyListener {
     fun setFont() {
         font = DEFAULT_FONT
     }
-
 
     /***************************************************************************
      * Drawing geometric shapes.
@@ -871,7 +865,6 @@ class Draw : ActionListener, MouseListener, MouseMotionListener, KeyListener {
                 } catch (e: IOException) {
                     e.printStackTrace()
                 }
-
             }
             else -> println("Invalid image file type: $suffix")
         }// need to change from ARGB to RGB for jpeg
@@ -886,9 +879,8 @@ class Draw : ActionListener, MouseListener, MouseMotionListener, KeyListener {
         val chooser = FileDialog(frame, "Use a .png or .jpg extension", FileDialog.SAVE)
         chooser.isVisible = true
         val filename = chooser.file
-        if (filename != null) {
+        if (filename != null)
             save(chooser.directory + File.separator + chooser.file)
-        }
     }
 
 
@@ -971,10 +963,9 @@ class Draw : ActionListener, MouseListener, MouseMotionListener, KeyListener {
             mouseY = userY(e.y.toDouble())
             isMousePressed = true
         }
-        if (e.button == MouseEvent.BUTTON1) {
+        if (e.button == MouseEvent.BUTTON1)
             for (listener in listeners)
                 listener.mousePressed(userX(e.x.toDouble()), userY(e.y.toDouble()))
-        }
     }
 
     /**
@@ -984,10 +975,9 @@ class Draw : ActionListener, MouseListener, MouseMotionListener, KeyListener {
         synchronized(mouseLock) {
             isMousePressed = false
         }
-        if (e.button == MouseEvent.BUTTON1) {
+        if (e.button == MouseEvent.BUTTON1)
             for (listener in listeners)
                 listener.mouseReleased(userX(e.x.toDouble()), userY(e.y.toDouble()))
-        }
     }
 
     /**
@@ -1255,14 +1245,18 @@ class Draw : ActionListener, MouseListener, MouseMotionListener, KeyListener {
 }
 
 /******************************************************************************
+ * This Kotlin file is automatically translated from Java using the
+ * Java-to-Kotlin converter by JetBrains with manual adjustments.
+ *
+ * Following is the copyright contents of the original file:
+ *
  *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
  *
- *  This file is part of algs4.jar, which accompanies the textbook
- *
- *      Algorithms, 4th edition by Robert Sedgewick and Kevin Wayne,
- *      Addison-Wesley Professional, 2011, ISBN 0-321-57351-X.
- *      http://algs4.cs.princeton.edu
- *
+ *  This original file is part of algs4.jar, which accompanies the
+ *  textbook
+ *  Algorithms, 4th edition by Robert Sedgewick and Kevin Wayne,
+ *  Addison-Wesley Professional, 2011, ISBN 0-321-57351-X.
+ *  http://algs4.cs.princeton.edu
  *
  *  algs4.jar is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -1276,4 +1270,4 @@ class Draw : ActionListener, MouseListener, MouseMotionListener, KeyListener {
  *
  *  You should have received a copy of the GNU General Public License
  *  along with algs4.jar.  If not, see http://www.gnu.org/licenses.
- ******************************************************************************/
+ */

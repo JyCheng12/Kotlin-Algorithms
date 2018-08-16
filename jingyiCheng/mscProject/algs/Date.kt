@@ -49,9 +49,7 @@ class Date : Comparable<Date> {
      */
     constructor(date: String) {
         val fields = date.split("/").toTypedArray()
-        if (fields.size != 3) {
-            throw IllegalArgumentException("Invalid date")
-        }
+        if (fields.size != 3) throw IllegalArgumentException("Invalid date")
         month = Integer.parseInt(fields[0])
         day = Integer.parseInt(fields[1])
         year = Integer.parseInt(fields[2])
@@ -63,12 +61,10 @@ class Date : Comparable<Date> {
      *
      * @return a date that represents the next day after this day
      */
-    operator fun next(): Date {
-        return when {
-            isValid(month, day + 1, year) -> Date(month, day + 1, year)
-            isValid(month + 1, 1, year) -> Date(month + 1, 1, year)
-            else -> Date(1, 1, year + 1)
-        }
+    operator fun next() = when {
+        isValid(month, day + 1, year) -> Date(month, day + 1, year)
+        isValid(month + 1, 1, year) -> Date(month + 1, 1, year)
+        else -> Date(1, 1, year + 1)
     }
 
     /**
@@ -180,29 +176,32 @@ class Date : Comparable<Date> {
             }
         }
     }
-
 }
 
 /******************************************************************************
- * Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ * This Kotlin file is automatically translated from Java using the
+ * Java-to-Kotlin converter by JetBrains with manual adjustments.
  *
- * This file is part of algs4.jar, which accompanies the textbook
+ * Following is the copyright contents of the original file:
  *
- * Algorithms, 4th edition by Robert Sedgewick and Kevin Wayne,
- * Addison-Wesley Professional, 2011, ISBN 0-321-57351-X.
- * http://algs4.cs.princeton.edu
+ *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
  *
+ *  This original file is part of algs4.jar, which accompanies the
+ *  textbook
+ *  Algorithms, 4th edition by Robert Sedgewick and Kevin Wayne,
+ *  Addison-Wesley Professional, 2011, ISBN 0-321-57351-X.
+ *  http://algs4.cs.princeton.edu
  *
- * algs4.jar is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ *  algs4.jar is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
  *
- * algs4.jar is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ *  algs4.jar is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with algs4.jar.  If not, see http://www.gnu.org/licenses.
+ *  You should have received a copy of the GNU General Public License
+ *  along with algs4.jar.  If not, see http://www.gnu.org/licenses.
  */

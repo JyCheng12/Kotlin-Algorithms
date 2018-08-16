@@ -122,14 +122,13 @@ class LinearProgramming
     // (smallest such index if there is a tie)
     private fun minRatioRule(q: Int): Int {
         var p = -1
-        for (i in 0 until m) {
+        for (i in 0 until m)
             // if (a[i][q] <= 0) continue;
             if (a[i][q] <= EPSILON)
                 continue
             else if (p == -1)
                 p = i
             else if (a[i][m + n] / a[i][q] < a[p][m + n] / a[p][q]) p = i
-        }
         return p
     }
 
@@ -181,12 +180,11 @@ class LinearProgramming
         val x = primal()
 
         // check that x >= 0
-        for (j in x.indices) {
+        for (j in x.indices)
             if (x[j] < 0.0) {
                 StdOut.println("x[$j] = ${x[j]} is negative")
                 return false
             }
-        }
 
         // check that Ax <= b
         for (i in 0 until m) {
@@ -207,19 +205,17 @@ class LinearProgramming
         val y = dual()
 
         // check that y >= 0
-        for (i in y.indices) {
+        for (i in y.indices)
             if (y[i] < 0.0) {
                 StdOut.println("y[$i] = ${y[i]} is negative")
                 return false
             }
-        }
 
         // check that yA >= c
         for (j in 0 until n) {
             var sum = 0.0
-            for (i in 0 until m) {
+            for (i in 0 until m)
                 sum += A[i][j] * y[i]
-            }
             if (sum < c[j] - EPSILON) {
                 StdOut.println("not dual feasible")
                 StdOut.println("c[$j] = ${c[j]}, sum = $sum")
@@ -257,9 +253,8 @@ class LinearProgramming
         StdOut.println("m = $m")
         StdOut.println("n = $n")
         for (i in 0..m) {
-            for (j in 0..m + n) {
+            for (j in 0..m + n)
                 StdOut.printf("%7.2f ", a[i][j])
-            }
             StdOut.println()
         }
         StdOut.println("value = ${value()}")
@@ -347,25 +342,29 @@ class LinearProgramming
 }
 
 /******************************************************************************
- * Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ * This Kotlin file is automatically translated from Java using the
+ * Java-to-Kotlin converter by JetBrains with manual adjustments.
  *
- * This file is part of algs4.jar, which accompanies the textbook
+ * Following is the copyright contents of the original file:
  *
- * Algorithms, 4th edition by Robert Sedgewick and Kevin Wayne,
- * Addison-Wesley Professional, 2011, ISBN 0-321-57351-X.
- * http://algs4.cs.princeton.edu
+ *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
  *
+ *  This original file is part of algs4.jar, which accompanies the
+ *  textbook
+ *  Algorithms, 4th edition by Robert Sedgewick and Kevin Wayne,
+ *  Addison-Wesley Professional, 2011, ISBN 0-321-57351-X.
+ *  http://algs4.cs.princeton.edu
  *
- * algs4.jar is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ *  algs4.jar is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
  *
- * algs4.jar is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ *  algs4.jar is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with algs4.jar.  If not, see http://www.gnu.org/licenses.
+ *  You should have received a copy of the GNU General Public License
+ *  along with algs4.jar.  If not, see http://www.gnu.org/licenses.
  */

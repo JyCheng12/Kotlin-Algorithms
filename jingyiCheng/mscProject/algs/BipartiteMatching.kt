@@ -88,20 +88,17 @@ class BipartiteMatching
         get() = cardinality * 2 == V
 
     init {
-        if (!bipartition.isBipartite) {
-            throw IllegalArgumentException("graph is not bipartite")
-        }
+        if (!bipartition.isBipartite) throw IllegalArgumentException("graph is not bipartite")
 
         // alternating path algorithm
         while (hasAugmentingPath(G)) {
             // find one endpoint t in alternating path
             var t = -1
-            for (v in 0 until G.V) {
+            for (v in 0 until G.V)
                 if (!isMatched(v) && edgeTo[v] != -1) {
                     t = v
                     break
                 }
-            }
 
             // update the matching according to alternating path in edgeTo[] array
             var v = t
@@ -123,7 +120,6 @@ class BipartiteMatching
 
         assert(certifySolution(G))
     }
-
 
     /*
      * is there an augmenting path?
@@ -155,7 +151,7 @@ class BipartiteMatching
         // run BFS, stopping as soon as an alternating path is found
         while (!queue.isEmpty) {
             val v = queue.dequeue()
-            for (w in G.adj(v)) {
+            for (w in G.adj(v))
 
                 // either (1) forward edge not in matching or (2) backward edge in matching
                 if (isResidualGraphEdge(v, w) && !marked[w]) {
@@ -164,7 +160,6 @@ class BipartiteMatching
                     if (!isMatched(w)) return true
                     queue.enqueue(w)
                 }
-            }
         }
         return false
     }
@@ -218,8 +213,7 @@ class BipartiteMatching
     }
 
     private fun validate(v: Int) {
-        if (v < 0 || v >= V)
-            throw IllegalArgumentException("vertex $v is not between 0 and ${V - 1}")
+        if (v < 0 || v >= V) throw IllegalArgumentException("vertex $v is not between 0 and ${V - 1}")
     }
 
     // check that mate[] and inVertexCover[] define a max matching and min vertex cover, respectively
@@ -227,21 +221,25 @@ class BipartiteMatching
         // check that mate(v) = w iff mate(w) = v
         for (v in 0 until V) {
             if (mate(v) == -1) continue
-            if (mate(mate(v)) != v) return false
+            if (mate(mate(v)) != v)
+                return false
         }
 
         // check that size() is consistent with mate()
         var matchedVertices = 0
-        for (v in 0 until V) {
-            if (mate(v) != -1) matchedVertices++
-        }
-        if (2 * cardinality != matchedVertices) return false
+        for (v in 0 until V)
+            if (mate(v) != -1)
+                matchedVertices++
+        if (2 * cardinality != matchedVertices)
+            return false
 
         // check that size() is consistent with minVertexCover()
         var sizeOfMinVertexCover = 0
         for (v in 0 until V)
-            if (inMinVertexCover(v)) sizeOfMinVertexCover++
-        if (cardinality != sizeOfMinVertexCover) return false
+            if (inMinVertexCover(v))
+                sizeOfMinVertexCover++
+        if (cardinality != sizeOfMinVertexCover)
+            return false
 
         // check that mate() uses each vertex at most once
         val isMatched = BooleanArray(V)
@@ -259,9 +257,9 @@ class BipartiteMatching
         for (v in 0 until V) {
             if (mate(v) == -1) continue
             var isEdge = false
-            for (w in G.adj(v)) {
-                if (mate(v) == w) isEdge = true
-            }
+            for (w in G.adj(v))
+                if (mate(v) == w)
+                    isEdge = true
             if (!isEdge) return false
         }
 
@@ -322,25 +320,29 @@ class BipartiteMatching
 }
 
 /******************************************************************************
- * Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ * This Kotlin file is automatically translated from Java using the
+ * Java-to-Kotlin converter by JetBrains with manual adjustments.
  *
- * This file is part of algs4.jar, which accompanies the textbook
+ * Following is the copyright contents of the original file:
  *
- * Algorithms, 4th edition by Robert Sedgewick and Kevin Wayne,
- * Addison-Wesley Professional, 2011, ISBN 0-321-57351-X.
- * http://algs4.cs.princeton.edu
+ *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
  *
+ *  This original file is part of algs4.jar, which accompanies the
+ *  textbook
+ *  Algorithms, 4th edition by Robert Sedgewick and Kevin Wayne,
+ *  Addison-Wesley Professional, 2011, ISBN 0-321-57351-X.
+ *  http://algs4.cs.princeton.edu
  *
- * algs4.jar is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ *  algs4.jar is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
  *
- * algs4.jar is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ *  algs4.jar is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with algs4.jar.  If not, see http://www.gnu.org/licenses.
+ *  You should have received a copy of the GNU General Public License
+ *  along with algs4.jar.  If not, see http://www.gnu.org/licenses.
  */

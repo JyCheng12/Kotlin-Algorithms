@@ -99,23 +99,19 @@ object FFT {
         val n = x.size
 
         // base case
-        if (n == 1) {
+        if (n == 1)
             return arrayOf(x[0])
-        }
 
         // radix 2 Cooley-Tukey FFT
-        if (n % 2 != 0) {
-            throw IllegalArgumentException("n is not a power of 2")
-        }
+        if (n % 2 != 0) throw IllegalArgumentException("n is not a power of 2")
 
         // fft of even terms
         val even = Array(n / 2) { x[2 * it] }
         val q = fft(even)
 
         // fft of odd terms
-        for (k in 0 until n / 2) {
+        for (k in 0 until n / 2)
             even[k] = x[2 * k + 1]
-        }
         val r = fft(even)
 
         // combine
@@ -144,14 +140,12 @@ object FFT {
         y = fft(y)
 
         // take conjugate again
-        for (i in 0 until n) {
+        for (i in 0 until n)
             y[i] = y[i].conjugate()
-        }
 
         // divide by n
-        for (i in 0 until n) {
+        for (i in 0 until n)
             y[i] = y[i].scale(1.0 / n)
-        }
         return y
     }
 
@@ -167,9 +161,8 @@ object FFT {
     fun cconvolve(x: Array<Complex>, y: Array<Complex>): Array<Complex> {
         // should probably pad x and y with 0s so that they have same length
         // and are powers of 2
-        if (x.size != y.size) {
-            throw IllegalArgumentException("Dimensions don't agree")
-        }
+        if (x.size != y.size) throw IllegalArgumentException("Dimensions don't agree")
+
         val n = x.size
 
         // compute FFT of each sequence
@@ -202,9 +195,8 @@ object FFT {
     private fun show(x: Array<Complex>, title: String) {
         StdOut.println(title)
         StdOut.println("-------------------")
-        for (i in x) {
+        for (i in x)
             StdOut.println(i)
-        }
         StdOut.println()
     }
 
@@ -242,25 +234,29 @@ object FFT {
 }// Do not instantiate.
 
 /******************************************************************************
- * Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ * This Kotlin file is automatically translated from Java using the
+ * Java-to-Kotlin converter by JetBrains with manual adjustments.
  *
- * This file is part of algs4.jar, which accompanies the textbook
+ * Following is the copyright contents of the original file:
  *
- * Algorithms, 4th edition by Robert Sedgewick and Kevin Wayne,
- * Addison-Wesley Professional, 2011, ISBN 0-321-57351-X.
- * http://algs4.cs.princeton.edu
+ *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
  *
+ *  This original file is part of algs4.jar, which accompanies the
+ *  textbook
+ *  Algorithms, 4th edition by Robert Sedgewick and Kevin Wayne,
+ *  Addison-Wesley Professional, 2011, ISBN 0-321-57351-X.
+ *  http://algs4.cs.princeton.edu
  *
- * algs4.jar is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ *  algs4.jar is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
  *
- * algs4.jar is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ *  algs4.jar is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with algs4.jar.  If not, see http://www.gnu.org/licenses.
+ *  You should have received a copy of the GNU General Public License
+ *  along with algs4.jar.  If not, see http://www.gnu.org/licenses.
  */

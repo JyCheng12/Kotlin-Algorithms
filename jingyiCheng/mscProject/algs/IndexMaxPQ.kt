@@ -151,12 +151,10 @@ class IndexMaxPQ<Key : Comparable<Key>>
      * @throws IllegalArgumentException unless `0 <= i < maxN`
      * @throws NoSuchElementException no key is associated with index `i`
      */
-    fun keyOf(i: Int): Key {
-        return if (!contains(i))
-            throw NoSuchElementException("index is not in the priority queue")
-        else
-            keys[i] as Key
-    }
+    fun keyOf(i: Int) = if (!contains(i))
+        throw NoSuchElementException("index is not in the priority queue")
+    else
+        keys[i] as Key
 
     /**
      * Change the key associated with index `i` to the specified value.
@@ -283,9 +281,7 @@ class IndexMaxPQ<Key : Comparable<Key>>
                 copy.insert(pq[i], keys[pq[i]])
         }
 
-        override fun hasNext(): Boolean {
-            return !copy.isEmpty
-        }
+        override fun hasNext() = !copy.isEmpty
 
         override fun next(): Int {
             if (!hasNext()) throw NoSuchElementException()
@@ -307,9 +303,8 @@ class IndexMaxPQ<Key : Comparable<Key>>
 
             val pq = IndexMaxPQ<String>(9)
             try {
-                for (i in strings.indices) {
+                for (i in strings.indices)
                     pq.insert(i, strings[i])
-                }
             } catch (e: IllegalArgumentException) {
                 StdOut.println(e.message)
             }
@@ -320,12 +315,11 @@ class IndexMaxPQ<Key : Comparable<Key>>
             StdOut.println()
 
             // increase or decrease the key
-            for (i in 0 until pq.size) {
+            for (i in 0 until pq.size)
                 if (StdRandom.uniform() < 0.5)
                     pq.increaseKey(i, "${pq.keys[i]}${pq.keys[i]}")
                 else
                     pq.decreaseKey(i, (pq.keys[i] as String).substring(0, 1))
-            }
 
             // delete and print each key
             while (!pq.isEmpty) {
@@ -337,9 +331,8 @@ class IndexMaxPQ<Key : Comparable<Key>>
 
             StdOut.println("Reinserting ... ")
             // reinsert the same strings
-            for (i in 0..8) {
+            for (i in 0..8)
                 pq.insert(i, strings[i])
-            }
 
             // delete them in random order
             val perm = IntArray(9) { it }
@@ -350,31 +343,34 @@ class IndexMaxPQ<Key : Comparable<Key>>
                 pq.delete(i)
                 StdOut.println("${i} $key")
             }
-
         }
     }
 }
 
 /******************************************************************************
- * Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ * This Kotlin file is automatically translated from Java using the
+ * Java-to-Kotlin converter by JetBrains with manual adjustments.
  *
- * This file is part of algs4.jar, which accompanies the textbook
+ * Following is the copyright contents of the original file:
  *
- * Algorithms, 4th edition by Robert Sedgewick and Kevin Wayne,
- * Addison-Wesley Professional, 2011, ISBN 0-321-57351-X.
- * http://algs4.cs.princeton.edu
+ *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
  *
+ *  This original file is part of algs4.jar, which accompanies the
+ *  textbook
+ *  Algorithms, 4th edition by Robert Sedgewick and Kevin Wayne,
+ *  Addison-Wesley Professional, 2011, ISBN 0-321-57351-X.
+ *  http://algs4.cs.princeton.edu
  *
- * algs4.jar is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ *  algs4.jar is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
  *
- * algs4.jar is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ *  algs4.jar is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with algs4.jar.  If not, see http://www.gnu.org/licenses.
+ *  You should have received a copy of the GNU General Public License
+ *  along with algs4.jar.  If not, see http://www.gnu.org/licenses.
  */

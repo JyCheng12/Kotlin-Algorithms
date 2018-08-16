@@ -34,7 +34,7 @@ class MultiwayMinPQ<Key> : Iterable<Key> {
     var size: Int = 0                        //Number of keys currently in the heap
         private set
     private var order: Int = 0                    //Number of levels of the tree
-    private var keys: Array<Key>                    //Array of keys
+    private var keys: Array<Key?>                    //Array of keys
     private val comp: Comparator<Key>    //Comparator over the keys
 
     /**
@@ -52,11 +52,11 @@ class MultiwayMinPQ<Key> : Iterable<Key> {
      * @param  d dimension of the heap
      * @throws IllegalArgumentException if `d < 2`
      */
-     @PublishedApi internal constructor (d: Int) {
+    @PublishedApi internal constructor (d: Int) {
         if (d < 2) throw IllegalArgumentException("Dimension should be 2 or over")
         this.d = d
         order = 1
-        keys = Array<Comparable<*>>(d shl 1,{""}) as Array<Key>
+        keys = Array<Comparable<Key>?>(d shl 1) { null } as Array<Key?>
         comp = MyComparator()
     }
 
@@ -72,7 +72,7 @@ class MultiwayMinPQ<Key> : Iterable<Key> {
         if (d < 2) throw IllegalArgumentException("Dimension should be 2 or over")
         this.d = d
         order = 1
-        keys = Array<Comparable<*>>(d shl 1, {""}) as Array<Key>
+        keys = Array<Comparable<Key>?>(d shl 1) { null } as Array<Key?>
         comp = comparator
     }
 
@@ -88,7 +88,7 @@ class MultiwayMinPQ<Key> : Iterable<Key> {
         if (d < 2) throw IllegalArgumentException("Dimension should be 2 or over")
         this.d = d
         order = 1
-        keys = Array<Comparable<*>>(d shl 1, {""}) as Array<Key>
+        keys = Array<Comparable<Key>?>(d shl 1) { null } as Array<Key?>
         comp = MyComparator()
         for (key in a) insert(key)
     }
@@ -106,7 +106,7 @@ class MultiwayMinPQ<Key> : Iterable<Key> {
         if (d < 2) throw IllegalArgumentException("Dimension should be 2 or over")
         this.d = d
         order = 1
-        keys = Array<Comparable<*>>(d shl 1, {""}) as Array<Key>
+        keys = Array<Comparable<Key>?>(d shl 1) { null } as Array<Key?>
         comp = comparator
         for (key in a) insert(key)
     }
@@ -133,7 +133,7 @@ class MultiwayMinPQ<Key> : Iterable<Key> {
      */
     fun minKey(): Key {
         if (isEmpty) throw NoSuchElementException("Priority queue is empty")
-        return keys[d]
+        return keys[d] as Key
     }
 
     /**
@@ -146,7 +146,7 @@ class MultiwayMinPQ<Key> : Iterable<Key> {
         if (isEmpty) throw NoSuchElementException("Priority queue is empty")
         exch(0, --size)
         sink(0)
-        val min = keys[size + d]
+        val min = keys[size + d]!!
         val number = getN(order - 2)
         if (order > 1 && size == number) {
             resize(number + Math.pow(d.toDouble(), (order - 1).toDouble()).toInt() + d)
@@ -210,9 +210,9 @@ class MultiwayMinPQ<Key> : Iterable<Key> {
     //If the heap is full, it adds one floor
     //If the heap has two floors empty, it removes one
     private fun resize(N: Int) {
-        val array = arrayOfNulls<Comparable<*>>(N) as Array<Key>
+        val array = arrayOfNulls<Comparable<Key>>(N) as Array<Key?>
         for (i in 0 until Math.min(keys.size, array.size)) {
-            array[i] = keys[i]
+            array[i] = keys[i] as Key
         }
         keys = array
     }
@@ -234,9 +234,8 @@ class MultiwayMinPQ<Key> : Iterable<Key> {
         init {
             data.keys = this@MultiwayMinPQ.keys
             data.size = size
-            for (i in keys.indices) {
+            for (i in keys.indices)
                 data.keys[i] = keys[i]
-            }
         }
 
         override fun hasNext() = !data.isEmpty
@@ -249,32 +248,34 @@ class MultiwayMinPQ<Key> : Iterable<Key> {
 
     //default Comparator
     private inner class MyComparator : Comparator<Key> {
-        override fun compare(key1: Key, key2: Key): Int {
-            return (key1 as Comparable<Key>).compareTo(key2)
-        }
+        override fun compare(key1: Key, key2: Key) = (key1 as Comparable<Key>).compareTo(key2)
     }
 }
 
 /******************************************************************************
- * Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ * This Kotlin file is automatically translated from Java using the
+ * Java-to-Kotlin converter by JetBrains with manual adjustments.
  *
- * This file is part of algs4.jar, which accompanies the textbook
+ * Following is the copyright contents of the original file:
  *
- * Algorithms, 4th edition by Robert Sedgewick and Kevin Wayne,
- * Addison-Wesley Professional, 2011, ISBN 0-321-57351-X.
- * http://algs4.cs.princeton.edu
+ *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
  *
+ *  This original file is part of algs4.jar, which accompanies the
+ *  textbook
+ *  Algorithms, 4th edition by Robert Sedgewick and Kevin Wayne,
+ *  Addison-Wesley Professional, 2011, ISBN 0-321-57351-X.
+ *  http://algs4.cs.princeton.edu
  *
- * algs4.jar is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ *  algs4.jar is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
  *
- * algs4.jar is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ *  algs4.jar is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with algs4.jar.  If not, see http://www.gnu.org/licenses.
+ *  You should have received a copy of the GNU General Public License
+ *  along with algs4.jar.  If not, see http://www.gnu.org/licenses.
  */

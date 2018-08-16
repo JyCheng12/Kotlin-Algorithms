@@ -87,9 +87,8 @@ class HopcroftKarp
         get() = cardinality * 2 == V
 
     init {
-        if (!bipartition.isBipartite) {
-            throw IllegalArgumentException("graph is not bipartite")
-        }
+        if (!bipartition.isBipartite) throw IllegalArgumentException("graph is not bipartite")
+
 
         // the call to hasAugmentingPath() provides enough info to reconstruct level graph
         while (hasAugmentingPath(G)) {
@@ -171,23 +170,21 @@ class HopcroftKarp
 
         // breadth-first search (starting from all unmatched vertices on one side of bipartition)
         val queue = nnQueue<Int>()
-        for (v in 0 until V) {
+        for (v in 0 until V)
             if (bipartition.color(v) && !isMatched(v)) {
                 queue.enqueue(v)
                 marked[v] = true
                 distTo[v] = 0
             }
-        }
 
         // run BFS until an augmenting path is found
         // (and keep going until all vertices at that distance are explored)
         var hasAugmentingPath = false
         while (!queue.isEmpty) {
             val v = queue.dequeue()
-            for (w in G.adj(v)) {
-
+            for (w in G.adj(v))
                 // forward edge not in matching or backwards edge in matching
-                if (isResidualGraphEdge(v, w)) {
+                if (isResidualGraphEdge(v, w))
                     if (!marked[w]) {
                         distTo[w] = distTo[v] + 1
                         marked[w] = true
@@ -198,8 +195,6 @@ class HopcroftKarp
                         // (no vertex on same side will be marked if its shortest path distance longer)
                         if (!hasAugmentingPath) queue.enqueue(w)
                     }
-                }
-            }
         }
         return hasAugmentingPath
     }
@@ -262,9 +257,8 @@ class HopcroftKarp
 
         // check that size() is consistent with mate()
         var matchedVertices = 0
-        for (v in 0 until V) {
+        for (v in 0 until V)
             if (mate(v) != -1) matchedVertices++
-        }
         if (2 * cardinality != matchedVertices) return false
 
         // check that size() is consistent with minVertexCover()
@@ -289,9 +283,8 @@ class HopcroftKarp
         for (v in 0 until V) {
             if (mate(v) == -1) continue
             var isEdge = false
-            for (w in G.adj(v)) {
+            for (w in G.adj(v))
                 if (mate(v) == w) isEdge = true
-            }
             if (!isEdge) return false
         }
 
@@ -362,25 +355,29 @@ class HopcroftKarp
 }
 
 /******************************************************************************
- * Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ * This Kotlin file is automatically translated from Java using the
+ * Java-to-Kotlin converter by JetBrains with manual adjustments.
  *
- * This file is part of algs4.jar, which accompanies the textbook
+ * Following is the copyright contents of the original file:
  *
- * Algorithms, 4th edition by Robert Sedgewick and Kevin Wayne,
- * Addison-Wesley Professional, 2011, ISBN 0-321-57351-X.
- * http://algs4.cs.princeton.edu
+ *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
  *
+ *  This original file is part of algs4.jar, which accompanies the
+ *  textbook
+ *  Algorithms, 4th edition by Robert Sedgewick and Kevin Wayne,
+ *  Addison-Wesley Professional, 2011, ISBN 0-321-57351-X.
+ *  http://algs4.cs.princeton.edu
  *
- * algs4.jar is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ *  algs4.jar is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
  *
- * algs4.jar is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ *  algs4.jar is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with algs4.jar.  If not, see http://www.gnu.org/licenses.
+ *  You should have received a copy of the GNU General Public License
+ *  along with algs4.jar.  If not, see http://www.gnu.org/licenses.
  */

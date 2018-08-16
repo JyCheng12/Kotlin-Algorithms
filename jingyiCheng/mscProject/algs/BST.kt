@@ -70,7 +70,7 @@ package jingyiCheng.mscProject.algs
  */
 class BST<Key : Comparable<Key>, Value> {
     private var root: Node? = null             // root of BST
-    var size : Int = 0
+    var size: Int = 0
         get() = size(root)
         private set
 
@@ -82,9 +82,7 @@ class BST<Key : Comparable<Key>, Value> {
         get() = size == 0
 
     // return number of key-value pairs in BST rooted at x
-    private fun size(x: Node?): Int {
-        return x?.size ?: 0
-    }
+    private fun size(x: Node?) = x?.size ?: 0
 
     // does this binary tree satisfy symmetric order?
     // Note: this test also ensures that data structure is a binary tree since order is strict
@@ -105,7 +103,7 @@ class BST<Key : Comparable<Key>, Value> {
             return true
         }
 
-    private inner class Node( val key: Key            // sorted by key
+    private inner class Node(val key: Key            // sorted by key
                              , var `val`: Value       // associated data
                              , var size: Int          // number of nodes in subtree
     ) {
@@ -121,9 +119,8 @@ class BST<Key : Comparable<Key>, Value> {
      * `false` otherwise
      * @throws IllegalArgumentException if `key` is `null`
      */
-    operator fun contains(key: Key?): Boolean {
-        return get(key ?: throw IllegalArgumentException("argument to contains() is null")) != null
-    }
+    operator fun contains(key: Key?) = get(key
+            ?: throw IllegalArgumentException("argument to contains() is null")) != null
 
     /**
      * Returns the value associated with the given key.
@@ -133,9 +130,7 @@ class BST<Key : Comparable<Key>, Value> {
      * and `null` if the key is not in the symbol table
      * @throws IllegalArgumentException if `key` is `null`
      */
-    operator fun get(key: Key?): Value? {
-        return get(root, key)
-    }
+    operator fun get(key: Key?) = get(root, key)
 
     private operator fun get(x: Node?, key: Key?): Value? {
         if (key == null) throw IllegalArgumentException("calls get() with a null key")
@@ -249,9 +244,7 @@ class BST<Key : Comparable<Key>, Value> {
      * @return the smallest key in the symbol table
      * @throws NoSuchElementException if the symbol table is empty
      */
-    fun min(): Key {
-        return min(root ?: throw NoSuchElementException("calls min() with empty symbol table")).key
-    }
+    fun min() = min(root ?: throw NoSuchElementException("calls min() with empty symbol table")).key
 
     private fun min(x: Node): Node {
         val left = x.left
@@ -264,9 +257,7 @@ class BST<Key : Comparable<Key>, Value> {
      * @return the largest key in the symbol table
      * @throws NoSuchElementException if the symbol table is empty
      */
-    fun max(): Key {
-        return max(root ?: throw NoSuchElementException("calls max() with empty symbol table")).key
-    }
+    fun max() = max(root ?: throw NoSuchElementException("calls max() with empty symbol table")).key
 
     private fun max(x: Node): Node {
         val right = x.right
@@ -288,26 +279,20 @@ class BST<Key : Comparable<Key>, Value> {
         return x?.key
     }
 
-    private fun floor(x: Node?, key: Key): Node? {
-        return when {
-            x == null -> null
-            key == x.key -> x
-            key < x.key -> floor(x.left, key)
-            else -> floor(x.right, key) ?: x
-        }
+    private fun floor(x: Node?, key: Key): Node? = when {
+        x == null -> null
+        key == x.key -> x
+        key < x.key -> floor(x.left, key)
+        else -> floor(x.right, key) ?: x
     }
 
-    fun floor2(key: Key): Key? {
-        return floor2(root, key, null)
-    }
+    fun floor2(key: Key) = floor2(root, key, null)
 
-    private fun floor2(x: Node?, key: Key, best: Key?): Key? {
-        return when {
-            x == null -> best
-            key < x.key -> floor2(x.left, key, best)
-            key > x.key -> floor2(x.right, key, x.key)
-            else -> x.key
-        }
+    private fun floor2(x: Node?, key: Key, best: Key?): Key? = when {
+        x == null -> best
+        key < x.key -> floor2(x.left, key, best)
+        key > x.key -> floor2(x.right, key, x.key)
+        else -> x.key
     }
 
     /**
@@ -325,13 +310,11 @@ class BST<Key : Comparable<Key>, Value> {
         return x?.key
     }
 
-    private fun ceiling(x: Node?, key: Key): Node? {
-        return when {
-            x == null -> null
-            key == x.key -> x
-            key < x.key -> ceiling(x.left, key) ?: x
-            else -> ceiling(x.right, key)
-        }
+    private fun ceiling(x: Node?, key: Key): Node? = when {
+        x == null -> null
+        key == x.key -> x
+        key < x.key -> ceiling(x.left, key) ?: x
+        else -> ceiling(x.right, key)
     }
 
     /**
@@ -369,18 +352,14 @@ class BST<Key : Comparable<Key>, Value> {
      * @return the number of keys in the symbol table strictly less than `key`
      * @throws IllegalArgumentException if `key` is `null`
      */
-    fun rank(key: Key?): Int {
-        return rank(key ?: throw IllegalArgumentException("argument to rank() is null"), root)
-    }
+    fun rank(key: Key?) = rank(key ?: throw IllegalArgumentException("argument to rank() is null"), root)
 
     // Number of keys in the subtree less than key.
-    private fun rank(key: Key, x: Node?): Int {
-        return when {
-            x == null -> 0
-            key < x.key -> rank(key, x.left)
-            key > x.key -> 1 + size(x.left) + rank(key, x.right)
-            else -> size(x.left)
-        }
+    private fun rank(key: Key, x: Node?): Int = when {
+        x == null -> 0
+        key < x.key -> rank(key, x.left)
+        key > x.key -> 1 + size(x.left) + rank(key, x.right)
+        else -> size(x.left)
     }
 
     /**
@@ -390,12 +369,10 @@ class BST<Key : Comparable<Key>, Value> {
      *
      * @return all keys in the symbol table
      */
-    fun keys(): nnQueue<Key> {
-        return try {
-            keys(min(), max())
-        }catch (e:NoSuchElementException){
-            nnQueue()
-        }
+    fun keys(): nnQueue<Key> = try {
+        keys(min(), max())
+    } catch (e: NoSuchElementException) {
+        nnQueue()
     }
 
     /**
@@ -452,9 +429,7 @@ class BST<Key : Comparable<Key>, Value> {
     fun height() = height(root)
 
 
-    private fun height(x: Node?): Int {
-        return if (x == null) -1 else 1 + Math.max(height(x.left), height(x.right))
-    }
+    private fun height(x: Node?): Int = if (x == null) -1 else 1 + Math.max(height(x.left), height(x.right))
 
     /**
      * Returns the keys in the BST in level order (for debugging).
@@ -509,13 +484,12 @@ class BST<Key : Comparable<Key>, Value> {
         @JvmStatic
         fun main(args: Array<String>) {
             val st = BST<String, Int>()
-            StdOut.println("Checking isEmpty ... "+st.isEmpty)
+            StdOut.println("Checking isEmpty ... " + st.isEmpty)
             val items = arrayOf("A", "B", "C", "D", "E", "F", null, "G")
             try {
-                for ((i, key) in items.withIndex()){
+                for ((i, key) in items.withIndex())
                     st.put(key, i)
-                }
-            }catch(e:IllegalArgumentException){
+            } catch (e: IllegalArgumentException) {
                 StdOut.println(e.message)
             }
             for (s in st.keys())
@@ -552,7 +526,7 @@ class BST<Key : Comparable<Key>, Value> {
             StdOut.print("Checking select(2) ... ")
             StdOut.println(st.select(2))
 
-            StdOut.println("Checking isEmpty ... "+st.isEmpty)
+            StdOut.println("Checking isEmpty ... " + st.isEmpty)
 
 
             StdOut.println("Deleting max... ${st.max()}")
@@ -577,7 +551,7 @@ class BST<Key : Comparable<Key>, Value> {
             st.put("C", null)
             for (s in st.keys())
                 StdOut.println("$s -> ${st[s]}")
-            StdOut.println("Checking isEmpty ... "+st.isEmpty)
+            StdOut.println("Checking isEmpty ... " + st.isEmpty)
 
             StdOut.println("End of test")
         }
@@ -585,14 +559,18 @@ class BST<Key : Comparable<Key>, Value> {
 }
 
 /******************************************************************************
+ * This Kotlin file is automatically translated from Java using the
+ * Java-to-Kotlin converter by JetBrains with manual adjustments.
+ *
+ * Following is the copyright contents of the original file:
+ *
  *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
  *
- *  This file is part of algs4.jar, which accompanies the textbook
- *
- *      Algorithms, 4th edition by Robert Sedgewick and Kevin Wayne,
- *      Addison-Wesley Professional, 2011, ISBN 0-321-57351-X.
- *      http://algs4.cs.princeton.edu
- *
+ *  This original file is part of algs4.jar, which accompanies the
+ *  textbook
+ *  Algorithms, 4th edition by Robert Sedgewick and Kevin Wayne,
+ *  Addison-Wesley Professional, 2011, ISBN 0-321-57351-X.
+ *  http://algs4.cs.princeton.edu
  *
  *  algs4.jar is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -606,4 +584,4 @@ class BST<Key : Comparable<Key>, Value> {
  *
  *  You should have received a copy of the GNU General Public License
  *  along with algs4.jar.  If not, see http://www.gnu.org/licenses.
- ******************************************************************************/
+ */

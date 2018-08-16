@@ -1,8 +1,8 @@
 /******************************************************************************
  * Compilation:  javac BellmanFordSP.java
  * Execution:    java BellmanFordSP filename.txt s
- * Dependencies: EdgeWeightedDigraph.kt DirectedEdge.kt Queue.kt
- * EdgeWeightedDirectedCycle.kt
+ * Dependencies: EdgeWeightedDigraph.java DirectedEdge.java Queue.java
+ * EdgeWeightedDirectedCycle.java
  * Data files:   https://algs4.cs.princeton.edu/44sp/tinyEWDn.txt
  * https://algs4.cs.princeton.edu/44sp/mediumEWDnc.txt
  *
@@ -55,7 +55,6 @@ package jingyiCheng.mscProject.algs
  * @author Robert Sedgewick
  * @author Kevin Wayne
  * @author Jingyi Cheng
- *
  */
 class BellmanFordSP
 /**
@@ -66,27 +65,35 @@ class BellmanFordSP
  * @throws IllegalArgumentException unless `0 <= s < V`
  */
 (G: EdgeWeightedDigraph, s: Int) {
-    private val distTo: DoubleArray = DoubleArray(G.V) { Double.NEGATIVE_INFINITY }               // distTo[v] = distance  of shortest s->v path
-    private val edgeTo: Array<DirectedEdge?> = arrayOfNulls(G.V)        // edgeTo[v] = last edge on shortest s->v path
-    private val onQueue: BooleanArray = BooleanArray(G.V)             // onQueue[v] = is v currently on the queue?
-    private val queue: nnQueue<Int> = nnQueue()         // queue of vertices to relax
-    private var cost: Int = 0                      // number of calls to relax()
-    var cycle: Iterable<DirectedEdge>? = null  // negative cycle (or null if no such cycle)
+    private val distTo: DoubleArray = DoubleArray(G.V) { Double.POSITIVE_INFINITY } // distTo[v] = distance  of shortest s->v path
+    private val edgeTo: Array<DirectedEdge?> = arrayOfNulls(G.V)                    // edgeTo[v] = last edge on shortest s->v path
+    private val onQueue: BooleanArray = BooleanArray(G.V)                           // onQueue[v] = is v currently on the queue?
+    private val queue: nnQueue<Int>                                                 // queue of vertices to relax
+    private var cost: Int = 0                                                       // number of calls to relax()
+    var cycle: Iterable<DirectedEdge>? = null                                       // negative cycle (or null if no such cycle)
         private set
 
     init {
         distTo[s] = 0.0
 
         // Bellman-Ford algorithm
+        queue = nnQueue()
         queue.enqueue(s)
         onQueue[s] = true
+
         while (!queue.isEmpty && !hasNegativeCycle()) {
+
             val v = queue.dequeue()
+
             onQueue[v] = false
+
             relax(G, v)
+
         }
 
-        assert(check(G, s))
+
+
+        //assert(check(G, s))
     }
 
     // relax vertex v and put other endpoints on queue if changed
@@ -151,7 +158,7 @@ class BellmanFordSP
      */
     fun hasPathTo(v: Int): Boolean {
         validateVertex(v)
-        return distTo[v] < Double.POSITIVE_INFINITY
+        return distTo[v] < java.lang.Double.POSITIVE_INFINITY
     }
 
     /**
@@ -192,6 +199,7 @@ class BellmanFordSP
                 return false
             }
         } else {
+
             // check that distTo[v] and edgeTo[v] are consistent
             if (distTo[s] != 0.0 || edgeTo[s] != null) {
                 System.err.println("distanceTo[s] and edgeTo[s] inconsistent")
@@ -217,7 +225,8 @@ class BellmanFordSP
 
             // check that all edges e = v->w on SPT satisfy distTo[w] == distTo[v] + e.weight()
             for (w in 0 until G.V) {
-                val e = edgeTo[w] ?: break
+                if (edgeTo[w] == null) continue
+                val e = edgeTo[w]!!
                 val v = e.from
                 if (w != e.to) return false
                 if (distTo[v] + e.weight != distTo[w]) {
@@ -250,13 +259,14 @@ class BellmanFordSP
             val `in` = In(args[0])
             val s = Integer.parseInt(args[1])
             val G = EdgeWeightedDigraph(`in`)
+
             val sp = BellmanFordSP(G, s)
 
             // print negative cycle
-            if (sp.hasNegativeCycle()) {
+            if (sp.hasNegativeCycle())
                 for (e in sp.cycle!!)
                     StdOut.println(e)
-            } else {
+            else // print shortest paths
                 for (v in 0 until G.V)
                     if (sp.hasPathTo(v)) {
                         StdOut.printf("%d to %d (%5.2f)  ", s, v, sp.distTo(v))
@@ -264,32 +274,35 @@ class BellmanFordSP
                             StdOut.print("$e   ")
                         StdOut.println()
                     } else
-                        StdOut.println("$s to $v           no path")
-            }// print shortest paths
+                        StdOut.printf("%d to %d           no path\n", s, v)
         }
     }
 }
 
 /******************************************************************************
- * Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ * This Kotlin file is automatically translated from Java using the
+ * Java-to-Kotlin converter by JetBrains with manual adjustments.
  *
- * This file is part of algs4.jar, which accompanies the textbook
+ * Following is the copyright contents of the original file:
  *
- * Algorithms, 4th edition by Robert Sedgewick and Kevin Wayne,
- * Addison-Wesley Professional, 2011, ISBN 0-321-57351-X.
- * http://algs4.cs.princeton.edu
+ *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
  *
+ *  This original file is part of algs4.jar, which accompanies the
+ *  textbook
+ *  Algorithms, 4th edition by Robert Sedgewick and Kevin Wayne,
+ *  Addison-Wesley Professional, 2011, ISBN 0-321-57351-X.
+ *  http://algs4.cs.princeton.edu
  *
- * algs4.jar is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ *  algs4.jar is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
  *
- * algs4.jar is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ *  algs4.jar is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with algs4.jar.  If not, see http://www.gnu.org/licenses.
+ *  You should have received a copy of the GNU General Public License
+ *  along with algs4.jar.  If not, see http://www.gnu.org/licenses.
  */

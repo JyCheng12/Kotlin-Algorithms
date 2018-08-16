@@ -87,7 +87,7 @@ class DijkstraSP
         }
 
         // check optimality conditions
-        assert(check(G, s))
+        //assert(check(G, s))
     }
 
     // relax edge e and update pq if changed
@@ -156,12 +156,11 @@ class DijkstraSP
     private fun check(G: EdgeWeightedDigraph, s: Int): Boolean {
 
         // check that edge weights are non-negative
-        for (e in G.edges()) {
+        for (e in G.edges())
             if (e.weight < 0) {
                 System.err.println("negative edge weight detected")
                 return false
             }
-        }
 
         // check that distTo[v] and edgeTo[v] are consistent
         if (distTo[s] != 0.0 || edgeTo[s] != null) {
@@ -177,7 +176,7 @@ class DijkstraSP
         }
 
         // check that all edges e = v->w satisfy distTo[w] <= distTo[v] + e.weight()
-        for (v in 0 until G.V) {
+        for (v in 0 until G.V)
             for (e in G.adj(v)) {
                 val w = e.to
                 if (distTo[v] + e.weight < distTo[w]) {
@@ -185,7 +184,6 @@ class DijkstraSP
                     return false
                 }
             }
-        }
 
         // check that all edges e = v->w on SPT satisfy distTo[w] == distTo[v] + e.weight()
         for (w in 0 until G.V) {
@@ -232,29 +230,32 @@ class DijkstraSP
                     StdOut.println("$s to $t         no path")
         }
     }
-
 }
 
 /******************************************************************************
- * Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ * This Kotlin file is automatically translated from Java using the
+ * Java-to-Kotlin converter by JetBrains with manual adjustments.
  *
- * This file is part of algs4.jar, which accompanies the textbook
+ * Following is the copyright contents of the original file:
  *
- * Algorithms, 4th edition by Robert Sedgewick and Kevin Wayne,
- * Addison-Wesley Professional, 2011, ISBN 0-321-57351-X.
- * http://algs4.cs.princeton.edu
+ *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
  *
+ *  This original file is part of algs4.jar, which accompanies the
+ *  textbook
+ *  Algorithms, 4th edition by Robert Sedgewick and Kevin Wayne,
+ *  Addison-Wesley Professional, 2011, ISBN 0-321-57351-X.
+ *  http://algs4.cs.princeton.edu
  *
- * algs4.jar is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ *  algs4.jar is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
  *
- * algs4.jar is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ *  algs4.jar is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with algs4.jar.  If not, see http://www.gnu.org/licenses.
+ *  You should have received a copy of the GNU General Public License
+ *  along with algs4.jar.  If not, see http://www.gnu.org/licenses.
  */

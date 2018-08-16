@@ -239,19 +239,14 @@ class IndexMinPQ<Key : Comparable<Key>>
 
     val comparator:Comparator<Key>? = null
     //private fun greater(i: Int, j: Int) = keys[pq[i]] as Key > keys[pq[j]] as Key
-    private fun greater(x: Key, y: Key): Boolean {
-        return if (comparator != null) {
+    private fun greater(x: Key, y: Key) = if (comparator != null)
             comparator.compare(x, y) > 0
-        } else {
+        else {
             val left = x as Comparable<Key>
-            return left > y
+            left > y
         }
-    }
 
-    private fun greater(i: Int, j: Int): Boolean {
-        return greater(keys[pq[i]]!!, keys[pq[j]]!!)
-    }
-
+    private fun greater(i: Int, j: Int) = greater(keys[pq[i]]!!, keys[pq[j]]!!)
 
     private fun exch(i: Int, j: Int) {
         val swap = pq[i]
@@ -352,25 +347,29 @@ class IndexMinPQ<Key : Comparable<Key>>
 }
 
 /******************************************************************************
- * Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ * This Kotlin file is automatically translated from Java using the
+ * Java-to-Kotlin converter by JetBrains with manual adjustments.
  *
- * This file is part of algs4.jar, which accompanies the textbook
+ * Following is the copyright contents of the original file:
  *
- * Algorithms, 4th edition by Robert Sedgewick and Kevin Wayne,
- * Addison-Wesley Professional, 2011, ISBN 0-321-57351-X.
- * http://algs4.cs.princeton.edu
+ *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
  *
+ *  This original file is part of algs4.jar, which accompanies the
+ *  textbook
+ *  Algorithms, 4th edition by Robert Sedgewick and Kevin Wayne,
+ *  Addison-Wesley Professional, 2011, ISBN 0-321-57351-X.
+ *  http://algs4.cs.princeton.edu
  *
- * algs4.jar is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ *  algs4.jar is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
  *
- * algs4.jar is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ *  algs4.jar is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with algs4.jar.  If not, see http://www.gnu.org/licenses.
+ *  You should have received a copy of the GNU General Public License
+ *  along with algs4.jar.  If not, see http://www.gnu.org/licenses.
  */

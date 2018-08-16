@@ -123,15 +123,13 @@ class BTree<Key : Comparable<Key>, Value> {
 
         // external node
         if (ht == 0) {
-            for (j in 0 until x.m) {
+            for (j in 0 until x.m)
                 if (eq(key, children[j].key)) return children[j].`val`
-            }
-        } else {
-            for (j in 0 until x.m) {
+        } else
+            for (j in 0 until x.m)
                 if (j + 1 == x.m || less(key, children[j + 1].key))
                     return search(children[j].next!!, key, ht - 1)
-            }
-        }// internal node
+        // internal node
         return null
     }
 
@@ -206,24 +204,20 @@ class BTree<Key : Comparable<Key>, Value> {
      *
      * @return a string representation of this B-tree.
      */
-    override fun toString(): String {
-        return toString(root, height, "") + "\n"
-    }
+    override fun toString() = toString(root, height, "") + "\n"
 
     private fun toString(h: Node<Key,Value>, ht: Int, indent: String): String {
         val s = StringBuilder()
         val children = h.children
 
         if (ht == 0) {
-            for (j in 0 until h.m) {
+            for (j in 0 until h.m)
                 s.append(indent + children[j].key + " " + children[j].`val` + "\n")
-            }
-        } else {
+        } else
             for (j in 0 until h.m) {
                 if (j > 0) s.append("$indent(${children[j].key})\n")
                 s.append(toString(children[j].next!!, ht - 1, "$indent     "))
             }
-        }
         return s.toString()
     }
 
@@ -278,29 +272,32 @@ class BTree<Key : Comparable<Key>, Value> {
             StdOut.println()
         }
     }
-
 }
 
 /******************************************************************************
- * Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ * This Kotlin file is automatically translated from Java using the
+ * Java-to-Kotlin converter by JetBrains with manual adjustments.
  *
- * This file is part of algs4.jar, which accompanies the textbook
+ * Following is the copyright contents of the original file:
  *
- * Algorithms, 4th edition by Robert Sedgewick and Kevin Wayne,
- * Addison-Wesley Professional, 2011, ISBN 0-321-57351-X.
- * http://algs4.cs.princeton.edu
+ *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
  *
+ *  This original file is part of algs4.jar, which accompanies the
+ *  textbook
+ *  Algorithms, 4th edition by Robert Sedgewick and Kevin Wayne,
+ *  Addison-Wesley Professional, 2011, ISBN 0-321-57351-X.
+ *  http://algs4.cs.princeton.edu
  *
- * algs4.jar is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ *  algs4.jar is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
  *
- * algs4.jar is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ *  algs4.jar is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with algs4.jar.  If not, see http://www.gnu.org/licenses.
+ *  You should have received a copy of the GNU General Public License
+ *  along with algs4.jar.  If not, see http://www.gnu.org/licenses.
  */

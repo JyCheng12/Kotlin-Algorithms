@@ -149,16 +149,14 @@ object StdAudio {
                 val bytesToRead = ais!!.available()
                 data = ByteArray(bytesToRead)
                 val bytesRead = ais.read(data)
-                if (bytesToRead != bytesRead)
-                    throw IllegalStateException("read only $bytesRead of $bytesToRead bytes")
+                if (bytesToRead != bytesRead) throw IllegalStateException("read only $bytesRead of $bytesToRead bytes")
             } else {
                 val url = StdAudio::class.java.getResource(filename)
                 ais = AudioSystem.getAudioInputStream(url)
                 val bytesToRead = ais!!.available()
                 data = ByteArray(bytesToRead)
                 val bytesRead = ais.read(data)
-                if (bytesToRead != bytesRead)
-                    throw IllegalStateException("read only $bytesRead of $bytesToRead bytes")
+                if (bytesToRead != bytesRead) throw IllegalStateException("read only $bytesRead of $bytesToRead bytes")
             }// try to read from URL
         } catch (e: IOException) {
             throw IllegalArgumentException("could not read '$filename'", e)
@@ -229,7 +227,6 @@ object StdAudio {
             throw IllegalArgumentException("could not play '$filename'", ioe)
         }
     }
-
 
     // play sound file using Applet.newAudioClip();
     private fun playApplet(filename: String) {
@@ -303,7 +300,6 @@ object StdAudio {
         } catch (e: IOException) {
             throw IllegalArgumentException("could not play '$filename'", e)
         }
-
     }
 
     // create a note (sine wave) of the given frequency (Hz), for the given
@@ -322,9 +318,8 @@ object StdAudio {
     fun main(args: Array<String>) {
         // 440 Hz for 1 sec
         val freq = 440.0
-        for (i in 0..SAMPLE_RATE) {
+        for (i in 0..SAMPLE_RATE)
             play(0.5 * Math.sin(2.0 * Math.PI * freq * i / SAMPLE_RATE))
-        }
 
         // scale increments
         val steps = intArrayOf(0, 2, 4, 5, 7, 9, 11, 12)
@@ -338,14 +333,18 @@ object StdAudio {
 }// can not instantiate
 
 /******************************************************************************
+ * This Kotlin file is automatically translated from Java using the
+ * Java-to-Kotlin converter by JetBrains with manual adjustments.
+ *
+ * Following is the copyright contents of the original file:
+ *
  *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
  *
- *  This file is part of algs4.jar, which accompanies the textbook
- *
- *      Algorithms, 4th edition by Robert Sedgewick and Kevin Wayne,
- *      Addison-Wesley Professional, 2011, ISBN 0-321-57351-X.
- *      http://algs4.cs.princeton.edu
- *
+ *  This original file is part of algs4.jar, which accompanies the
+ *  textbook
+ *  Algorithms, 4th edition by Robert Sedgewick and Kevin Wayne,
+ *  Addison-Wesley Professional, 2011, ISBN 0-321-57351-X.
+ *  http://algs4.cs.princeton.edu
  *
  *  algs4.jar is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -359,4 +358,4 @@ object StdAudio {
  *
  *  You should have received a copy of the GNU General Public License
  *  along with algs4.jar.  If not, see http://www.gnu.org/licenses.
- ******************************************************************************/
+ */

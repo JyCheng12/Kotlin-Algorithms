@@ -69,8 +69,8 @@ class BoruvkaMST
 
         // repeat at most log V times or until we have V-1 edges
         var t = 1
-        while (t < G.V && edges.size < G.V - 1) {
 
+        while (t < G.V && edges.size < G.V - 1) {
             // foreach tree in forest, find closest edge
             // if edge weights are equal, ties are broken in favor of first edge in G.edges()
             val closest = arrayOfNulls<Edge>(G.V)
@@ -101,7 +101,7 @@ class BoruvkaMST
             t += t
         }
         // check optimality conditions
-        assert(check(G))
+        //assert(check(G))
     }
 
 
@@ -109,11 +109,10 @@ class BoruvkaMST
     private fun check(G: EdgeWeightedGraph): Boolean {
         // check weight
         var totalWeight = 0.0
-        for (e in edges) {
+        for (e in edges)
             totalWeight += e.weight
-        }
         if (Math.abs(totalWeight - weight) > FLOATING_POINT_EPSILON) {
-            System.err.printf("Weight of edges does not equal weight(): %f vs. %f\n", totalWeight, weight)
+            System.err.printf("Weight of edges does not equal weight: %f vs. %f\n", totalWeight, weight)
             return false
         }
 
@@ -154,14 +153,12 @@ class BoruvkaMST
             for (f in G.edges()) {
                 val x = f.either
                 val y = f.other(x)
-                if (!uf.connected(x, y)) {
+                if (!uf.connected(x, y))
                     if (f.weight < e.weight) {
                         System.err.println("Edge $f violates cut optimality conditions")
                         return false
                     }
-                }
             }
-
         }
         return true
     }
@@ -182,35 +179,37 @@ class BoruvkaMST
             val `in` = In(args[0])
             val G = EdgeWeightedGraph(`in`)
             val mst = BoruvkaMST(G)
-            for (e in mst.edges) {
+            for (e in mst.edges)
                 StdOut.println(e)
-            }
             StdOut.printf("%.5f\n", mst.weight)
         }
     }
-
 }
 
 /******************************************************************************
- * Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ * This Kotlin file is automatically translated from Java using the
+ * Java-to-Kotlin converter by JetBrains with manual adjustments.
  *
- * This file is part of algs4.jar, which accompanies the textbook
+ * Following is the copyright contents of the original file:
  *
- * Algorithms, 4th edition by Robert Sedgewick and Kevin Wayne,
- * Addison-Wesley Professional, 2011, ISBN 0-321-57351-X.
- * http://algs4.cs.princeton.edu
+ *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
  *
+ *  This original file is part of algs4.jar, which accompanies the
+ *  textbook
+ *  Algorithms, 4th edition by Robert Sedgewick and Kevin Wayne,
+ *  Addison-Wesley Professional, 2011, ISBN 0-321-57351-X.
+ *  http://algs4.cs.princeton.edu
  *
- * algs4.jar is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ *  algs4.jar is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
  *
- * algs4.jar is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ *  algs4.jar is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with algs4.jar.  If not, see http://www.gnu.org/licenses.
+ *  You should have received a copy of the GNU General Public License
+ *  along with algs4.jar.  If not, see http://www.gnu.org/licenses.
  */

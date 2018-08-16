@@ -134,7 +134,6 @@ class BinaryOut {
         } catch (e: IOException) {
             e.printStackTrace()
         }
-
         n = 0
         buffer = 0
     }
@@ -170,17 +169,13 @@ class BinaryOut {
      * Writes the specified bit to the binary output stream.
      * @param x the `boolean` to write
      */
-    fun write(x: Boolean) {
-        writeBit(x)
-    }
+    fun write(x: Boolean) = writeBit(x)
 
     /**
      * Writes the 8-bit byte to the binary output stream.
      * @param x the `byte` to write.
      */
-    fun write(x: Byte) {
-        writeByte(x.toInt() and 0xff)
-    }
+    fun write(x: Byte) = writeByte(x.toInt() and 0xff)
 
     /**
      * Writes the 32-bit int to the binary output stream.
@@ -219,9 +214,7 @@ class BinaryOut {
      * Writes the 64-bit double to the binary output stream.
      * @param x the `double` to write
      */
-    fun write(x: Double) {
-        write(x.toRawBits())
-    }
+    fun write(x: Double) = write(x.toRawBits())
 
     /**
      * Writes the 64-bit long to the binary output stream.
@@ -242,9 +235,7 @@ class BinaryOut {
      * Writes the 32-bit float to the binary output stream.
      * @param x the `float` to write
      */
-    fun write(x: Float) {
-        write(x.toRawBits())
-    }
+    fun write(x: Float) = write(x.toRawBits())
 
     /**
      * Write the 16-bit int to the binary output stream.
@@ -314,8 +305,6 @@ class BinaryOut {
     }
 
     companion object {
-
-
         /**
          * Test client. Read bits from standard input and write to the file
          * specified on command line.
@@ -337,29 +326,32 @@ class BinaryOut {
             out.flush()
         }
     }
-
 }
 
 /******************************************************************************
- * Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ * This Kotlin file is automatically translated from Java using the
+ * Java-to-Kotlin converter by JetBrains with manual adjustments.
  *
- * This file is part of algs4.jar, which accompanies the textbook
+ * Following is the copyright contents of the original file:
  *
- * Algorithms, 4th edition by Robert Sedgewick and Kevin Wayne,
- * Addison-Wesley Professional, 2011, ISBN 0-321-57351-X.
- * http://algs4.cs.princeton.edu
+ *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
  *
+ *  This original file is part of algs4.jar, which accompanies the
+ *  textbook
+ *  Algorithms, 4th edition by Robert Sedgewick and Kevin Wayne,
+ *  Addison-Wesley Professional, 2011, ISBN 0-321-57351-X.
+ *  http://algs4.cs.princeton.edu
  *
- * algs4.jar is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ *  algs4.jar is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
  *
- * algs4.jar is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ *  algs4.jar is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with algs4.jar.  If not, see http://www.gnu.org/licenses.
+ *  You should have received a copy of the GNU General Public License
+ *  along with algs4.jar.  If not, see http://www.gnu.org/licenses.
  */

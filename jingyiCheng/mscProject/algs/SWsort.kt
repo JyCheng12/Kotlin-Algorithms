@@ -36,7 +36,5 @@ object SWsort {
         time = timer.elapsedTime()
         StdOut.println("Merge $time")
 
-
-
     }
 }

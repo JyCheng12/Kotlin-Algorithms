@@ -21,7 +21,7 @@ class SWBQS {
             val stack: Stack<Int> = Stack()
             val bag: Bag<Int> = Bag()
 
-/*            var timer = System.currentTimeMillis()
+            var timer = System.currentTimeMillis()
             for (i in 1 until n)
                 queue.enqueue(i)
             for (i in 1 until n)
@@ -50,10 +50,10 @@ class SWBQS {
             for (i in 0 until n)
                 mpq.delMin()
             val time4 = (System.currentTimeMillis() - timer).toDouble() /1000
-            StdOut.printf("delMining (%.3f seconds)\n", time4)*/
+            StdOut.printf("delMining (%.3f seconds)\n", time4)
 
             val impq = IndexMinPQ<Int>(n)
-            var timer = System.currentTimeMillis()
+            timer = System.currentTimeMillis()
             for (i in 0 until n)
                 impq.insert(n - i - 1, i)
             val time6 = (System.currentTimeMillis()-timer).toDouble() /1000

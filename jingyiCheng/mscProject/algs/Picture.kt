@@ -139,9 +139,9 @@ class Picture : ActionListener {
         try {
             // try to read from file in working directory
             val file = File(filename)
-            if (file.isFile) {
+            if (file.isFile)
                 image = ImageIO.read(file)
-            } else {
+            else {
                 var url: URL? = javaClass.getResource(filename)
                 url = url ?: URL(filename)
                 image = ImageIO.read(url)
@@ -376,13 +376,13 @@ class Picture : ActionListener {
         filename = file.name
         if (frame != null) frame!!.title = filename
         val suffix = filename!!.substring(filename!!.lastIndexOf('.') + 1)
-        if ("jpg".equals(suffix, ignoreCase = true) || "png".equals(suffix, ignoreCase = true)) {
+        if ("jpg".equals(suffix, ignoreCase = true) || "png".equals(suffix, ignoreCase = true))
             try {
                 ImageIO.write(image!!, suffix, file)
             } catch (e: IOException) {
                 e.printStackTrace()
             }
-        } else
+        else
             println("Error: filename must end in .jpg or .png")
     }
 
@@ -413,16 +413,19 @@ class Picture : ActionListener {
     }
 }
 
-
 /******************************************************************************
+ * This Kotlin file is automatically translated from Java using the
+ * Java-to-Kotlin converter by JetBrains with manual adjustments.
+ *
+ * Following is the copyright contents of the original file:
+ *
  *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
  *
- *  This file is part of algs4.jar, which accompanies the textbook
- *
- *      Algorithms, 4th edition by Robert Sedgewick and Kevin Wayne,
- *      Addison-Wesley Professional, 2011, ISBN 0-321-57351-X.
- *      http://algs4.cs.princeton.edu
- *
+ *  This original file is part of algs4.jar, which accompanies the
+ *  textbook
+ *  Algorithms, 4th edition by Robert Sedgewick and Kevin Wayne,
+ *  Addison-Wesley Professional, 2011, ISBN 0-321-57351-X.
+ *  http://algs4.cs.princeton.edu
  *
  *  algs4.jar is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -436,4 +439,4 @@ class Picture : ActionListener {
  *
  *  You should have received a copy of the GNU General Public License
  *  along with algs4.jar.  If not, see http://www.gnu.org/licenses.
- ******************************************************************************/
+ */

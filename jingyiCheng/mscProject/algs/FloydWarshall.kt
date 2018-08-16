@@ -52,18 +52,12 @@ class FloydWarshall
 (G: AdjMatrixEdgeWeightedDigraph) {
     var hasNegativeCycle: Boolean = false  // is there a negative cycle?
         private set
-    private val distTo: Array<DoubleArray> = Array(G.V) { DoubleArray(G.V) }         // distTo[v][w] = length of shortest v->w path
+    private val distTo: Array<DoubleArray> = Array(G.V) { DoubleArray(G.V) {Double.POSITIVE_INFINITY} }         // distTo[v][w] = length of shortest v->w path
     private val edgeTo: Array<Array<DirectedEdge?>> = Array(G.V) { arrayOfNulls<DirectedEdge>(G.V) }   // edgeTo[v][w] = last edge on shortest v->w path
 
     init {
         run{
             val V = G.V
-            // initialize distances to infinity
-            for (v in 0 until V) {
-                for (w in 0 until V) {
-                    distTo[v][w] = Double.POSITIVE_INFINITY
-                }
-            }
 
             // initialize distances using edge-weighted digraph's
             for (v in 0 until G.V) {
@@ -79,23 +73,21 @@ class FloydWarshall
             }
 
             // Floyd-Warshall updates
-            for (i in 0 until V) {
+            for (i in 0 until V)
                 // compute shortest paths using only 0, 1, ..., i as intermediate vertices
                 for (v in 0 until V) {
                     if (edgeTo[v][i] == null) continue  // optimization
-                    for (w in 0 until V) {
+                    for (w in 0 until V)
                         if (distTo[v][w] > distTo[v][i] + distTo[i][w]) {
                             distTo[v][w] = distTo[v][i] + distTo[i][w]
                             edgeTo[v][w] = edgeTo[i][w]
                         }
-                    }
                     // check for negative cycle
                     if (distTo[v][v] < 0.0) {
                         hasNegativeCycle = true
                         return@run
                     }
                 }
-            }
             assert(check(G))
         }
     }
@@ -106,7 +98,7 @@ class FloydWarshall
      * or `null` if there is no such cycle
      */
     fun negativeCycle(): Iterable<DirectedEdge>? {
-        for (v in distTo.indices) {
+        for (v in distTo.indices)
             // negative cycle in v's predecessor graph
             if (distTo[v][v] < 0.0) {
                 val V = edgeTo.size
@@ -118,7 +110,6 @@ class FloydWarshall
                 assert(finder.hasCycle)
                 return finder.cycle
             }
-        }
         return null
     }
 
@@ -149,8 +140,7 @@ class FloydWarshall
     fun dist(s: Int, t: Int): Double {
         validateVertex(s)
         validateVertex(t)
-        if (hasNegativeCycle)
-            throw UnsupportedOperationException("Negative cost cycle exists")
+        if (hasNegativeCycle) throw UnsupportedOperationException("Negative cost cycle exists")
         return distTo[s][t]
     }
 
@@ -181,19 +171,16 @@ class FloydWarshall
     // check optimality conditions
     private fun check(G: AdjMatrixEdgeWeightedDigraph): Boolean {
         // no negative cycle
-        if (!hasNegativeCycle) {
-            for (v in 0 until G.V) {
+        if (!hasNegativeCycle)
+            for (v in 0 until G.V)
                 for (e in G.adj(v)) {
                     val w = e.to
-                    for (i in 0 until G.V) {
+                    for (i in 0 until G.V)
                         if (distTo[i][w] > distTo[i][v] + e.weight) {
                             System.err.println("edge $e is eligible")
                             return false
                         }
-                    }
                 }
-            }
-        }
         return true
     }
 
@@ -234,18 +221,16 @@ class FloydWarshall
 
             // print all-pairs shortest path distances
             StdOut.print("  ")
-            for (v in 0 until G.V) {
+            for (v in 0 until G.V)
                 StdOut.printf("%6d ", v)
-            }
             StdOut.println()
             for (v in 0 until G.V) {
                 StdOut.printf("%3d: ", v)
-                for (w in 0 until G.V) {
+                for (w in 0 until G.V)
                     if (spt.hasPath(v, w))
                         StdOut.printf("%6.2f ", spt.dist(v, w))
                     else
                         StdOut.print("  Inf ")
-                }
                 StdOut.println()
             }
 
@@ -255,44 +240,44 @@ class FloydWarshall
                 for (e in spt.negativeCycle()!!)
                     StdOut.println(e)
                 StdOut.println()
-            } else {
-                for (v in 0 until G.V) {
-                    for (w in 0 until G.V) {
+            } else // print all-pairs shortest paths
+                for (v in 0 until G.V)
+                    for (w in 0 until G.V)
                         if (spt.hasPath(v, w)) {
                             StdOut.printf("%d to %d (%5.2f)  ", v, w, spt.dist(v, w))
                             for (e in spt.path(v, w)!!)
                                 StdOut.print("$e  ")
                             StdOut.println()
-                        } else {
+                        } else
                             StdOut.println("$v to $w no path")
-                        }
-                    }
-                }
-            }// print all-pairs shortest paths
         }
     }
 }
 
 /******************************************************************************
- * Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ * This Kotlin file is automatically translated from Java using the
+ * Java-to-Kotlin converter by JetBrains with manual adjustments.
  *
- * This file is part of algs4.jar, which accompanies the textbook
+ * Following is the copyright contents of the original file:
  *
- * Algorithms, 4th edition by Robert Sedgewick and Kevin Wayne,
- * Addison-Wesley Professional, 2011, ISBN 0-321-57351-X.
- * http://algs4.cs.princeton.edu
+ *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
  *
+ *  This original file is part of algs4.jar, which accompanies the
+ *  textbook
+ *  Algorithms, 4th edition by Robert Sedgewick and Kevin Wayne,
+ *  Addison-Wesley Professional, 2011, ISBN 0-321-57351-X.
+ *  http://algs4.cs.princeton.edu
  *
- * algs4.jar is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ *  algs4.jar is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
  *
- * algs4.jar is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ *  algs4.jar is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with algs4.jar.  If not, see http://www.gnu.org/licenses.
+ *  You should have received a copy of the GNU General Public License
+ *  along with algs4.jar.  If not, see http://www.gnu.org/licenses.
  */

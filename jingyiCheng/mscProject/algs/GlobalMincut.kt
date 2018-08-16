@@ -107,9 +107,8 @@ class GlobalMincut
      */
     private fun validate(G: EdgeWeightedGraph) {
         if (G.V < 2) throw IllegalArgumentException("number of vertices of G is less than 2")
-        for (e in G.edges()) {
+        for (e in G.edges())
             if (e.weight < 0) throw IllegalArgumentException("edge $e has negative weight")
-        }
     }
 
     /**
@@ -139,9 +138,8 @@ class GlobalMincut
      * @param uf the union-find data type
      */
     private fun makeCut(t: Int, uf: UF) {
-        for (v in cut.indices) {
+        for (v in cut.indices)
             cut[v] = uf.connected(v, t)
-        }
     }
 
     /**
@@ -185,9 +183,8 @@ class GlobalMincut
      */
     private fun minCutPhase(G: EdgeWeightedGraph, marked: BooleanArray, cp: CutPhase): CutPhase {
         val pq = IndexMaxPQ<Double>(G.V)
-        for (v in 0 until G.V) {
+        for (v in 0 until G.V)
             if (v != cp.s && !marked[v]) pq.insert(v, 0.0)
-        }
         pq.insert(cp.s, Double.POSITIVE_INFINITY)
         while (!pq.isEmpty) {
             val v = pq.delMax()
@@ -199,9 +196,8 @@ class GlobalMincut
             }
         }
         cp.weight = 0.0
-        for (e in G.adj(cp.t)) {
+        for (e in G.adj(cp.t))
             cp.weight += e.weight
-        }
         return cp
     }
 
@@ -217,19 +213,17 @@ class GlobalMincut
      */
     private fun contractEdge(G: EdgeWeightedGraph, s: Int, t: Int): EdgeWeightedGraph {
         val H = EdgeWeightedGraph(G.V)
-        for (v in 0 until G.V) {
+        for (v in 0 until G.V)
             for (e in G.adj(v)) {
                 val w = e.other(v)
                 if (v == s && w == t || v == t && w == s) continue
-                if (v < w) {
+                if (v < w)
                     when {
                         w == t -> H.addEdge(Edge(v, s, e.weight))
                         v == t -> H.addEdge(Edge(w, s, e.weight))
                         else -> H.addEdge(Edge(v, w, e.weight))
                     }
-                }
             }
-        }
         return H
     }
 
@@ -284,9 +278,8 @@ class GlobalMincut
             val G = EdgeWeightedGraph(`in`)
             val mc = GlobalMincut(G)
             StdOut.print("Min cut: ")
-            for (v in 0 until G.V) {
+            for (v in 0 until G.V)
                 if (mc.cut(v)) StdOut.print("$v ")
-            }
             StdOut.println()
             StdOut.println("Min cut weight = ${mc.weight}")
         }
@@ -294,25 +287,29 @@ class GlobalMincut
 }
 
 /******************************************************************************
- * Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ * This Kotlin file is automatically translated from Java using the
+ * Java-to-Kotlin converter by JetBrains with manual adjustments.
  *
- * This file is part of algs4.jar, which accompanies the textbook
+ * Following is the copyright contents of the original file:
  *
- * Algorithms, 4th edition by Robert Sedgewick and Kevin Wayne,
- * Addison-Wesley Professional, 2011, ISBN 0-321-57351-X.
- * http://algs4.cs.princeton.edu
+ *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
  *
+ *  This original file is part of algs4.jar, which accompanies the
+ *  textbook
+ *  Algorithms, 4th edition by Robert Sedgewick and Kevin Wayne,
+ *  Addison-Wesley Professional, 2011, ISBN 0-321-57351-X.
+ *  http://algs4.cs.princeton.edu
  *
- * algs4.jar is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ *  algs4.jar is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
  *
- * algs4.jar is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ *  algs4.jar is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with algs4.jar.  If not, see http://www.gnu.org/licenses.
+ *  You should have received a copy of the GNU General Public License
+ *  along with algs4.jar.  If not, see http://www.gnu.org/licenses.
  */

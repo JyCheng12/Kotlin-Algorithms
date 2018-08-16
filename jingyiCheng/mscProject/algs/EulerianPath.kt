@@ -52,12 +52,10 @@ class EulerianPath
         var isUsed: Boolean = false
 
         // returns the other vertex of the edge
-        fun other(vertex: Int): Int {
-            return when (vertex) {
-                v -> w
-                w -> v
-                else -> throw IllegalArgumentException("Illegal endpoint")
-            }
+        fun other(vertex: Int): Int = when (vertex) {
+            v -> w
+            w -> v
+            else -> throw IllegalArgumentException("Illegal endpoint")
         }
     }
 
@@ -73,7 +71,7 @@ class EulerianPath
                 s = v
             }
 
-        run{
+        run {
             // graph can't have an Eulerian path
             // (this condition is needed for correctness)
             if (oddDegreeVertices > 2) return@run
@@ -83,12 +81,12 @@ class EulerianPath
 
             // create local view of adjacency lists, to iterate one vertex at a time
             // the helper Edge data type is used to avoid exploring both copies of an edge v-w
-            val adj = Array(G.V) {nnQueue<Edge>()}
+            val adj = Array(G.V) { nnQueue<Edge>() }
 
             for (v in 0 until G.V) {
                 var selfLoops = 0
                 for (w in G.adj(v))
-                    // careful with self loops
+                // careful with self loops
                     if (v == w) {
                         if (selfLoops % 2 == 0) {
                             val e = Edge(v, w)
@@ -128,7 +126,6 @@ class EulerianPath
             else this.path = path
             assert(certifySolution(G))
         }
-
     }
 
     /**
@@ -157,7 +154,6 @@ class EulerianPath
 
         // check that path() is a path in G
         // TODO
-
     }
 
     companion object {
@@ -255,25 +251,29 @@ class EulerianPath
 }
 
 /******************************************************************************
- * Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ * This Kotlin file is automatically translated from Java using the
+ * Java-to-Kotlin converter by JetBrains with manual adjustments.
  *
- * This file is part of algs4.jar, which accompanies the textbook
+ * Following is the copyright contents of the original file:
  *
- * Algorithms, 4th edition by Robert Sedgewick and Kevin Wayne,
- * Addison-Wesley Professional, 2011, ISBN 0-321-57351-X.
- * http://algs4.cs.princeton.edu
+ *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
  *
+ *  This original file is part of algs4.jar, which accompanies the
+ *  textbook
+ *  Algorithms, 4th edition by Robert Sedgewick and Kevin Wayne,
+ *  Addison-Wesley Professional, 2011, ISBN 0-321-57351-X.
+ *  http://algs4.cs.princeton.edu
  *
- * algs4.jar is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ *  algs4.jar is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
  *
- * algs4.jar is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ *  algs4.jar is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with algs4.jar.  If not, see http://www.gnu.org/licenses.
+ *  You should have received a copy of the GNU General Public License
+ *  along with algs4.jar.  If not, see http://www.gnu.org/licenses.
  */

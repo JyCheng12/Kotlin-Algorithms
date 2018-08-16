@@ -164,9 +164,8 @@ class SuffixArray
         // longest common prefix of s and t
         private fun lcpSuffix(s: Suffix, t: Suffix): Int {
             val n = Math.min(s.length(), t.length())
-            for (i in 0 until n) {
+            for (i in 0 until n)
                 if (s.charAt(i) != t.charAt(i)) return i
-            }
             return n
         }
 
@@ -198,9 +197,9 @@ class SuffixArray
                 val ith = "\"" + s.substring(index, Math.min(index + 50, s.length)) + "\""
                 assert(s.substring(index) == suffix.select(i))
                 val rank = suffix.rank(s.substring(index))
-                if (i == 0) {
+                if (i == 0)
                     StdOut.printf("%3d %3d %3s %3d %s\n", i, index, "-", rank, ith)
-                } else {
+                else {
                     val lcp = suffix.lcp(i)
                     StdOut.printf("%3d %3d %3d %3d %s\n", i, index, lcp, rank, ith)
                 }
@@ -210,25 +209,29 @@ class SuffixArray
 }
 
 /******************************************************************************
- * Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ * This Kotlin file is automatically translated from Java using the
+ * Java-to-Kotlin converter by JetBrains with manual adjustments.
  *
- * This file is part of algs4.jar, which accompanies the textbook
+ * Following is the copyright contents of the original file:
  *
- * Algorithms, 4th edition by Robert Sedgewick and Kevin Wayne,
- * Addison-Wesley Professional, 2011, ISBN 0-321-57351-X.
- * http://algs4.cs.princeton.edu
+ *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
  *
+ *  This original file is part of algs4.jar, which accompanies the
+ *  textbook
+ *  Algorithms, 4th edition by Robert Sedgewick and Kevin Wayne,
+ *  Addison-Wesley Professional, 2011, ISBN 0-321-57351-X.
+ *  http://algs4.cs.princeton.edu
  *
- * algs4.jar is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ *  algs4.jar is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
  *
- * algs4.jar is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ *  algs4.jar is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with algs4.jar.  If not, see http://www.gnu.org/licenses.
+ *  You should have received a copy of the GNU General Public License
+ *  along with algs4.jar.  If not, see http://www.gnu.org/licenses.
  */

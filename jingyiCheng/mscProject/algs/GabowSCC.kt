@@ -73,9 +73,8 @@ class GabowSCC
     private val stack2: nnStack<Int> = nnStack()
 
     init {
-        for (v in 0 until G.V) {
+        for (v in 0 until G.V)
             if (!marked[v]) dfs(G, v)
-        }
         // check that id[] gives strong components
         assert(check(G))
     }
@@ -85,14 +84,13 @@ class GabowSCC
         preorder[v] = pre++
         stack1.push(v)
         stack2.push(v)
-        for (w in G.adj(v)) {
+        for (w in G.adj(v))
             if (!marked[w])
                 dfs(G, w)
             else if (id[w] == -1) {
                 while (preorder[stack2.peek()] > preorder[w])
                     stack2.pop()
             }
-        }
 
         // found strong component containing v
         if (stack2.peek() == v) {
@@ -135,12 +133,10 @@ class GabowSCC
     // does the id[] array contain the strongly connected components?
     private fun check(G: Digraph): Boolean {
         val tc = TransitiveClosure(G)
-        for (v in 0 until G.V) {
-            for (w in 0 until G.V) {
+        for (v in 0 until G.V)
+            for (w in 0 until G.V)
                 if (stronglyConnected(v, w) != (tc.reachable(v, w) && tc.reachable(w, v)))
                     return false
-            }
-        }
         return true
     }
 
@@ -168,15 +164,13 @@ class GabowSCC
 
             // compute list of vertices in each strong component
             val components = Array(m) { nnQueue<Int>() }
-            for (v in 0 until G.V) {
+            for (v in 0 until G.V)
                 components[scc.id(v)].enqueue(v)
-            }
 
             // print results
             for (i in 0 until m) {
-                for (v in components[i]) {
+                for (v in components[i])
                     StdOut.print("$v ")
-                }
                 StdOut.println()
             }
         }
@@ -184,25 +178,29 @@ class GabowSCC
 }
 
 /******************************************************************************
- * Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ * This Kotlin file is automatically translated from Java using the
+ * Java-to-Kotlin converter by JetBrains with manual adjustments.
  *
- * This file is part of algs4.jar, which accompanies the textbook
+ * Following is the copyright contents of the original file:
  *
- * Algorithms, 4th edition by Robert Sedgewick and Kevin Wayne,
- * Addison-Wesley Professional, 2011, ISBN 0-321-57351-X.
- * http://algs4.cs.princeton.edu
+ *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
  *
+ *  This original file is part of algs4.jar, which accompanies the
+ *  textbook
+ *  Algorithms, 4th edition by Robert Sedgewick and Kevin Wayne,
+ *  Addison-Wesley Professional, 2011, ISBN 0-321-57351-X.
+ *  http://algs4.cs.princeton.edu
  *
- * algs4.jar is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ *  algs4.jar is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
  *
- * algs4.jar is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ *  algs4.jar is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with algs4.jar.  If not, see http://www.gnu.org/licenses.
+ *  You should have received a copy of the GNU General Public License
+ *  along with algs4.jar.  If not, see http://www.gnu.org/licenses.
  */

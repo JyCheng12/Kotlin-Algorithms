@@ -64,14 +64,13 @@ class ClosestPair
             pointsByX.sortWith(Point2D.X_ORDER)
 
             // check for coincident points
-            for (i in 0 until n - 1) {
+            for (i in 0 until n - 1)
                 if (pointsByX[i] == pointsByX[i + 1]) {
                     bestDistance = 0.0
                     either = pointsByX[i]
                     other = pointsByX[i + 1]
                     return@run
                 }
-            }
 
             // sort by y-coordinate (but not yet sorted)
             val pointsByY = Array(n) { pointsByX[it] }
@@ -101,10 +100,9 @@ class ClosestPair
 
         // aux[0..m-1] = sequence of points closer than delta, sorted by y-coordinate
         var m = 0
-        for (i in lo..hi) {
+        for (i in lo..hi)
             if (Math.abs(pointsByY[i].x - median.x) < delta)
                 aux[m++] = pointsByY[i]
-        }
 
         // compare each point to its neighbors with y-coordinate closer than delta
         for (i in 0 until m) {
@@ -135,21 +133,19 @@ class ClosestPair
         // precondition: a[lo .. mid] and a[mid+1 .. hi] are sorted subarrays
         private fun <T : Comparable<T>> merge(a: Array<T>, aux: Array<T>, lo: Int, mid: Int, hi: Int) {
             // copy to aux[]
-            for (k in lo..hi) {
+            for (k in lo..hi)
                 aux[k] = a[k]
-            }
 
             // merge back to a[]
             var i = lo
             var j = mid + 1
-            for (k in lo..hi) {
+            for (k in lo..hi)
                 when {
                     i > mid -> a[k] = aux[j++]
                     j > hi -> a[k] = aux[i++]
                     less(aux[j], aux[i]) -> a[k] = aux[j++]
                     else -> a[k] = aux[i++]
                 }
-            }
         }
 
         /**
@@ -169,29 +165,32 @@ class ClosestPair
             StdOut.println("${closest.bestDistance} from ${closest.either} to ${closest.other}")
         }
     }
-
 }
 
 /******************************************************************************
- * Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ * This Kotlin file is automatically translated from Java using the
+ * Java-to-Kotlin converter by JetBrains with manual adjustments.
  *
- * This file is part of algs4.jar, which accompanies the textbook
+ * Following is the copyright contents of the original file:
  *
- * Algorithms, 4th edition by Robert Sedgewick and Kevin Wayne,
- * Addison-Wesley Professional, 2011, ISBN 0-321-57351-X.
- * http://algs4.cs.princeton.edu
+ *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
  *
+ *  This original file is part of algs4.jar, which accompanies the
+ *  textbook
+ *  Algorithms, 4th edition by Robert Sedgewick and Kevin Wayne,
+ *  Addison-Wesley Professional, 2011, ISBN 0-321-57351-X.
+ *  http://algs4.cs.princeton.edu
  *
- * algs4.jar is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ *  algs4.jar is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
  *
- * algs4.jar is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ *  algs4.jar is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with algs4.jar.  If not, see http://www.gnu.org/licenses.
+ *  You should have received a copy of the GNU General Public License
+ *  along with algs4.jar.  If not, see http://www.gnu.org/licenses.
  */
